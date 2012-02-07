@@ -150,12 +150,12 @@ Should be possible.
 ** Pagebreak
 Finds faulty page breaks, i.e. page breaks that are the only element
 between two =p=, and allows user to verify (accept/reject) or to add a
-=<precedingemptyline>= element. In other words this prep tool allows
-for three choices: 
+=class= attribute with value =precedingemptyline=. In other words this
+prep tool allows for three choices:
 
 1. Leave as is
 2. move inside =p=
-3. move inside =p= and add ~class="precedingemptyline"~
+3. move inside =p= and add class =precedingemptyline=
 
 *** XSLT Migration
 Implementation in XSLT should be possible, however, it is not clear at
