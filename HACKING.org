@@ -9,13 +9,11 @@ notice and this notice are preserved.
 
 
 * Overview
-
 The prep tool is used as an aid to enrich [[http://en.wikipedia.org/wiki/DTBook][DTBook XML]] with markup
 needed to render Braille. It is implemented as a plugin to the oXygen
 XML editor.
 
 ** Why edit the text as opposed to the document tree
-
 The current implementation of the plugin does the markup enrichment
 directly in the text and does not parse the XML. This has some
 problems in that we have to deal with gruesome regular expressions
@@ -26,8 +24,8 @@ having to synchronize the document tree with the text, as while we are
 manipulating the document tree the user might at the same time modify
 the text.
 
-* Class Overview
 
+* Class Overview
 ** PrepToolsPluginExtension.java
 
 Deals with initializing the (Swing) Menu bars, tool bar, etc. It also
@@ -63,62 +61,123 @@ Not needed in favor of the MenuPlugger
 
 ** VFormActionHelper.java
 
+
 * External Dependencies
 - https://github.com/bwagner/interval-tree as forked from https://github.com/dyoo/interval-tree
 - https://github.com/bwagner/wordhierarchy
 
+
 * Individual PrepTools
-Short description of individual preptools. Included is discussion of feasibility in xslt.
-The idea is to replace the preptools written in Java by one generic preptool that knows
-how to treat specially marked-up dtbook files.
-pros:
-- xslt operates on xml instead of raw text
-cons:
-- the process becomes more clunky, as we have a call to the pipeline in the edit->preptool->check-cycle.
-  particularly: Parens-PrepTool
+The following is a short description of each individual
+preptool. 
+
+** XSLT Migration
+Since there is an idea to [[Future Work][implement the preptools using XSLT]] a
+discussion of feasibility of such a migration is included. The idea
+is to replace the preptools written in Java by one generic preptool
+that knows how to treat specially marked-up DTBook files. An external
+XSLT checks the xml and inserts special markes which contain both
+alternatives, e.g. for the vform it could be something along the lines
+of
+
+: <select>
+:   <proposed><vform>Sie</vform></proposed>
+:   <original>Sie</original>
+: </select>
+
+The preptool would simply go through all the =select= elements and ask
+the user whether to use the proposed change or keep the original.
+
+*** Pros:
+- XSLT operates on xml instead of raw text
+
+*** Cons:
+- the process becomes more clunky, as we have a call to the pipeline
+  in the edit->preptool->check-cycle.  particularly: Parens-PrepTool
+
 
 ** VForms
-Searches for a collection of vforms and allows user to verify (accept/reject).
-Offers two different patterns of matching vforms selectable via a checkbox.
-Implementation in XSLT should be possible. Challenge: how to handle user's choice of pattern.
--> generic plugin should allow flags specific to process, i.e. for vforms the choice of pattern.
+Searches for a collection of vforms and allows user to verify
+(accept/reject).  Offers two different patterns of matching vforms
+(presumably for old and new spelling) selectable via a check box.
+
+*** XSLT Migration
+Migration to XSLT should be possible. Challenge: how to handle user's
+choice of pattern. The XSLT would have to be parametrized.
 
 ** Parens
-Finds orphaned parens and wrongly oriented quotation marks.
-Implementation in XSLT possible, but more awkward than current implementation (see introduction).
+Finds balanced parens and wrongly oriented quotation marks. Also
+handles nested parens.
+
+*** XSLT Migration
+Unclear if this makes sense to migrate. While balanced parens could be
+inplemented the problem with nesting seems not such a great fit for XSLT.
 
 ** Ordinal
-Finds potential ordinal numbers and allows user to verify (accept/reject).
-Implementation in XSLT should be possible.
+Finds potential ordinal numbers and allows user to verify
+(accept/reject).
+
+*** XSLT Migration
+Migration to XSLT should be possible.
 
 ** Roman
-Finds potential roman numbers and allows user to verify (accept/reject).
-Implementation in XSLT should be possible.
+Finds potential roman numbers and allows user to verify
+(accept/reject).
+
+*** XSLT Migration
+Should be possible.
 
 ** Measure
-Finds potential measure numbers and allows user to verify (accept/reject).
-Implementation in XSLT should be possible.
+Finds potential measure numbers and allows user to verify
+(accept/reject).
+
+*** XSLT Migration
+Should be possible.
 
 ** Abbreviation
-Finds potential abbreviations and allows user to verify (accept/reject).
-Implementation in XSLT should be possible.
+Finds potential abbreviations and allows user to verify
+(accept/reject).
+
+*** XSLT Migration
+Might be a bit hairy due to the complicated regexp but should be possible.
 
 ** Url/Email
 Finds potential urls/emails and allows user to verify (accept/reject).
-Implementation in XSLT should be possible.
+
+*** XSLT Migration
+Should be possible.
 
 ** Pagebreak
-Finds page breaks and allows user to verify (accept/reject) or to add a <precedingemptyline> element.
-Implementation in XSLT should be possible, however, it's a process that allows not only two choices, but three.
+Finds faulty page breaks, i.e. page breaks that are the only element
+between two =p=, and allows user to verify (accept/reject) or to add a
+=class= attribute with value =precedingemptyline=. In other words this
+prep tool allows for three choices:
+
+1. Leave as is
+2. move inside =p=
+3. move inside =p= and add class =precedingemptyline=
+
+*** XSLT Migration
+Implementation in XSLT should be possible, however, it is not clear at
+the moment how the choice of three options would be handled.
 
 ** Accent
-Finds accents and allows user to verify (accept/reject). The difference to other preptools: once a word has
-been marked with a certain choice, the same choice is applied globally to all occurrences of the word in the text.
-This functionality would need to be implemented in the generic preptool.
+Finds accents and allows user to verify (accept/reject). The
+difference to other preptools: once a word has been marked with a
+certain choice, the same choice is applied globally to all occurrences
+of the word in the text.  This functionality would need to be
+implemented in the generic preptool.
+
+*** XSLT Migration
+The point of this is that you only get asked once. For all the other
+prep tools you are queried for each instance where a potential change
+is found. However in the case of accents the user wants to change all
+occurences of a certain word. This could probably be marked up in XSLT
+but would most likely require a dedicated tool in the editor. Not just
+the plain yes/no GUI.
 
 
 * Future work
-
 There is an effort underway within the [[http://www.daisy.org/pipeline2][DAISY pipeline 2 project]] to
 create a set of what they call pre-processing steps which have a
 similar goal: To enrich XML with additional markup to make it ready
