@@ -27,7 +27,6 @@ the text.
 
 * Class Overview
 ** PrepToolsPluginExtension.java
-
 Deals with initializing the (Swing) Menu bars, tool bar, etc. It also
 makes sure that some menu items which are implicitly resetting the
 state of a document are wrapped, so that the prep tool can be notified
@@ -37,18 +36,15 @@ one is still active we need to make sure that the user is warned and
 the state of the prep tool is reset.
 
 ** OxygenEditGrouper.java
-
 Group a bunch of edits so that they can be undone with one undo
 
 ** DocumentMetaInfo.java
-
 Store info such as current active prep tool, state of each prep tool
 or current cursor position. This is needed to reflect it in the tool
 bar but also for example to check if the user changed the cursor
 position behind the prep tools back.
 
 ** PrepToolsValidatorPluginExtension.java
-
 Not needed in favor of the MenuPlugger
 
 ** AbstractPrepToolAction.java
@@ -61,9 +57,45 @@ Not needed in favor of the MenuPlugger
 
 ** VFormActionHelper.java
 
+** DocumentUtils.java
+Allows you to do multiple replacements inside a Document
+(javax.swing.text.Document). This allows you to do a more intelligent
+modification of the text.
+
+** FileUtils.java
+Implements basename
+
+** MarkupUtil.java
+Implements search in the context of skippable regions. Also contains
+utility methods to handle xml start and end tags.
+
+** Match.java
+Simple data structure for region, i.e. start and end points.
+
+** PositionMatch.java
+Implements regions in a document which are immune to changes. This is
+done using the functionality of a swing document which implements this.
+
+** MetaUtils.java
+Manage meta info in the XML. Namely enables to put the information
+which prep tool has been run for this document into the meta data
+section of the document. This is not used currently but there is a
+pending feature request which is implemented using this functionality.
+
+** ParensUtil.java
+Helper methods for finding unbalanced parens
+
+** PropsUtils.java
+Utility functions to read version info from a properties file.
+
+** RegionSkipper.java
+** TextUtils.java
+** VFormUtil.java
+
 
 * External Dependencies
-- https://github.com/bwagner/interval-tree as forked from https://github.com/dyoo/interval-tree
+- https://github.com/bwagner/interval-tree 
+  - as forked from https://github.com/dyoo/interval-tree
 - https://github.com/bwagner/wordhierarchy
 
 
@@ -107,7 +139,9 @@ choice of pattern. The XSLT would have to be parametrized.
 
 ** Parens
 Finds balanced parens and wrongly oriented quotation marks. Also
-handles nested parens.
+handles nested parens. Other than the usual prep tool this one just
+notifies the user of unbalanced parens and leaves the work up to the
+user to fix.
 
 *** XSLT Migration
 Unclear if this makes sense to migrate. While balanced parens could be
