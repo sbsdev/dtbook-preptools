@@ -85,7 +85,10 @@ public class PrepToolLoader {
 	// public static final String KILLER2_URL_REGEX =
 	// "(?:https?://)?(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\\.)+[A-Z]{2,6}\\.?|https?://localhost|https?://\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})(?::\\d+)?(?:/?|[/?]\\S+)";
 
-	private static final String URL_SEARCH_REGEX = "(?:https?://)?(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\\.)+[A-Z]{2,6}\\.?|https?://localhost|https?://\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})(?::\\d+)?/?(?:[/?][^\\s<]+)?";
+	public static final String URL_SEARCH_REGEX = 
+	    "(?:https?://)?(?:(?:[A-Z0-9](?:[A-Z0-9-/]{0,61}[A-Z0-9])?\\.)+[A-Z]{2,6}" + 
+	    "|https?://localhost" + 
+	    "|https?://\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})(?::\\d+)?/?(?:[/?][^\\s<]+)?";
 
 	// group 1: email addr complete
 	// group 2: email without mailto:

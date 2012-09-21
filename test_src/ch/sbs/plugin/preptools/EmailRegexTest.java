@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.junit.Test;
@@ -84,15 +85,23 @@ public class EmailRegexTest {
 	public void testUrl03() {
 		final Pattern pattern = Pattern
 				.compile(PrepToolLoader.EMAIL_URL_SEARCH_REGEX);
-		assertTrue(pattern.matcher("<p>www.beispiel.com</p>").find());
-		assertTrue(pattern.matcher("<p>http://1.2.3.4</p>").find());
-		assertFalse(pattern.matcher("<p>http://xmlp-test/todo/139</p>").find());
-		assertTrue(pattern.matcher("<p>http://xmlp-test.com/todo/139</p>")
-				.find());
-		assertTrue(pattern.matcher("<p>adventures.com</p>").find());
-		assertTrue(pattern.matcher("<p>adventures.hu</p>").find());
-		assertTrue(pattern.matcher("<p>http://123.245.3.4:4000?a=b</p>").find());
-		assertFalse(pattern.matcher("<p>123.245.3.4:4000?a=b</p>").find());
+		assertTrue(pattern.matcher("www.beispiel.com").matches());
+		assertTrue(pattern.matcher("http://1.2.3.4").matches());
+		assertFalse(pattern.matcher("http://xmlp-test/todo/139").matches());
+		assertTrue(pattern.matcher("http://xmlp-test.com/todo/139").matches());
+		assertTrue(pattern.matcher("adventures.com").matches());
+		assertTrue(pattern.matcher("adventures.hu").matches());
+		assertFalse(pattern.matcher("adventures.hu<").matches());
+		assertTrue(pattern.matcher("http://123.245.3.4:4000?a=b").matches());
+		assertFalse(pattern.matcher("123.245.3.4:4000?a=b").matches());
 
+	}
+
+	@Test
+	public void testUrl04() {
+		final Pattern pattern = Pattern
+				.compile(PrepToolLoader.EMAIL_URL_SEARCH_REGEX);
+		assertTrue(pattern.matcher("http://bla/blo/index.html").matches());
+		assertTrue(pattern.matcher("http://bla/blo/index.php?x=1&y=2").matches());
 	}
 }
