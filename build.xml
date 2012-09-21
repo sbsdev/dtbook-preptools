@@ -14,7 +14,7 @@
 	<!-- used by "dist", "jar", "plugin.xml", "clean" -->
 	<property name="jarfile" value="${ant.project.name}.jar" />
 
-	<!-- used by "compile", "jar", "init", "junit", "clean" -->
+	<!-- used by "compile", "jar", "init", "test", "clean" -->
 	<property name="build.dir" value="bin" />
 
 	<!-- used by "compile" -->
@@ -26,7 +26,7 @@
 	<!-- used by "boilerplate" -->
 	<property name="src.generated" value="generated_src" />
 
-	<!-- used by "junit" -->
+	<!-- used by "test" -->
 	<property name="test.src" value="test_src" />
 
 	<!-- used by "zip", "clean" -->
@@ -68,18 +68,17 @@
 		<mkdir dir="${build.dir}" />
 	</target>
 
-    <presetdef name="my.javac">
-        <javac includeantruntime="false" />
-    </presetdef>
-
 	<target name="compile" depends="init, boilerplate" description="compile project">
-		<my.javac destdir="${build.dir}" deprecation="on" debug="on">
-			<src path="${src.dir}" />
-			<src path="${src.generated}" />
-			<classpath>
-				<path refid="classpath.path" />
-			</classpath>
-		</my.javac>
+	  <depend srcdir="${test.src}" destdir="${dir.build}" cache="depcache">   
+	    <include name= "**/*.java"/>   
+	  </depend>
+	  <javac destdir="${build.dir}" deprecation="on" debug="on" includeantruntime="false" >
+	    <src path="${src.dir}" />
+	    <src path="${src.generated}" />
+	    <classpath>
+	      <path refid="classpath.path" />
+	    </classpath>
+	  </javac>
 	</target>
 
 	<target name="deploy" description="install plugin in local oxygen and restart oxygen" >
@@ -388,22 +387,31 @@
 	</target>
 	<!-- end git stuff -->
 
-    <target name="junit" depends="compile" description="junit">
-        <junit printsummary="withOutAndErr" haltonfailure="yes">
+	<target name="compile-test">
+	  <depend srcdir="${test.src}" destdir="${dir.build}" cache="depcache">   
+	    <include name= "**/*.java"/>   
+	  </depend>
+	  <javac srcdir="${test.src}" destdir="${build.dir}" includeantruntime="false">
+	    <classpath refid="classpath.path"/>
+	  </javac>
+	</target>
+
+	<target name="test" depends="compile,compile-test" description="junit">
+	  <junit printsummary="off" logfailedtests="true">
             <classpath>
-                <fileset dir="lib">
+	      <fileset dir="lib">
                 <include name="**/*.jar"/>
-                </fileset>
-                <path location="${build.dir}"/>
-                <path location="."/>
+	      </fileset>
+	      <pathelement location="${build.dir}"/>
+	      <pathelement location="."/>
             </classpath>
             <batchtest fork="yes">
-                    <fileset dir="${test.src}">
-                            <include name="**/*Test.java"/>
-                    </fileset>
+	      <fileset dir="${test.src}">
+		<include name="**/*Test.java"/>
+	      </fileset>
             </batchtest>
-        </junit>
-    </target>
+	  </junit>
+	</target>
 
 	<target name="clean" description="clean">
 		<delete dir="${build.dir}"/>
