@@ -80,15 +80,7 @@ public class PrepToolLoader {
 	public static final String URL_TAG = "a";
 	public static final String URL_SKIP_REGEX = "a[^>]*";
 
-	// public static final String KILLER_URL_REGEX =
-	// "(?:(?:https?|ftp)://)?(?:\\S+(?::\\S*)?@)?(?:(?!10(?:\\.\\d{1,3}){3})(?!127(?:\\.\\d{1,3}){3})(?!169\\.254(?:\\.\\d{1,3}){2})(?!192\\.168(?:\\.\\d{1,3}){2})(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))(?::\\d{2,5})?(?:/[^\\s]*)?";
-	// public static final String KILLER2_URL_REGEX =
-	// "(?:https?://)?(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\\.)+[A-Z]{2,6}\\.?|https?://localhost|https?://\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})(?::\\d+)?(?:/?|[/?]\\S+)";
-
-	public static final String URL_SEARCH_REGEX = 
-	    "(?:https?://)?(?:(?:[A-Z0-9](?:[A-Z0-9-/]{0,61}[A-Z0-9])?\\.)+[A-Z]{2,6}" + 
-	    "|https?://localhost" + 
-	    "|https?://\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})(?::\\d+)?/?(?:[/?][^\\s<]+)?";
+        public static final String URL_SEARCH_REGEX = "[\\w\\-\\./@:?=&;]*(://|@|[a-z]{2}\\.[a-z]{2})[\\w-\\./@:?=&;]*";
 
 	// group 1: email addr complete
 	// group 2: email without mailto:
