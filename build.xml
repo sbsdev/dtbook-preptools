@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="dtbook-preptools" default="deploy">
+<project name="dtbook-preptools" default="zip">
 <!-- NOTE: project name is used in properties viewid and toolbarid which need to correspond to the constants in Ids.java! -->
 	
+	<property name="compile.target"  value="1.6" />
+
 	<!-- used by "send": properties "recipient" and "greet" -->
 	<property file="build.properties" />
 
@@ -72,7 +74,7 @@
 	  <depend srcdir="${test.src}" destdir="${dir.build}" cache="depcache">   
 	    <include name= "**/*.java"/>   
 	  </depend>
-	  <javac destdir="${build.dir}" deprecation="on" debug="on" includeantruntime="false" >
+	  <javac destdir="${build.dir}" target="${compile.target}" deprecation="on" debug="on" includeantruntime="false" >
 	    <src path="${src.dir}" />
 	    <src path="${src.generated}" />
 	    <classpath>
@@ -391,7 +393,7 @@
 	  <depend srcdir="${test.src}" destdir="${dir.build}" cache="depcache">   
 	    <include name= "**/*.java"/>   
 	  </depend>
-	  <javac srcdir="${test.src}" destdir="${build.dir}" includeantruntime="false">
+	  <javac srcdir="${test.src}" destdir="${build.dir}" target="${compile.target}" includeantruntime="false">
 	    <classpath refid="classpath.path"/>
 	  </javac>
 	</target>
