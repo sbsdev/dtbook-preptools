@@ -76,11 +76,11 @@ public class PrepToolLoader {
 
 	// http://redmine.sbszh.ch/issues/1629 mark up email-addresses and urls
 	// TODO: complete regex with oct chars
-	private static final String EMAIL_SEARCH_REGEX = "(?:mailto:)?([-!#$%&'*+/=?^_`{}|~0-9A-Z]+(?:\\.[-!#$%&'*+/=?^_`{}|~0-9A-Z]+)*@(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\\.)+[A-Z]{2,6}\\.?)";
+	private static final String EMAIL_SEARCH_REGEX = "(?:mailto:)?([-!#$%&'*+/=?^_`{}|~0-9A-Z]+(?:\\.[-!#$%&'*+/=?^_`{}|~0-9A-Z]+)*@(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\\.)+[A-Z]{2,6})";
 	public static final String URL_TAG = "a";
 	public static final String URL_SKIP_REGEX = "a[^>]*";
 
-        public static final String URL_SEARCH_REGEX = "[\\w\\-\\./@:?=&;]*(://|@|[a-z]{2}\\.[a-z]{2})[\\w-\\./@:?=&;]*";
+        public static final String URL_SEARCH_REGEX = "\\w[^\\s<>]*([a-z]\\.\\w|\\w\\.[a-z]|[a-z]://\\w)[^\\s<>]*\\w";
 
 	// group 1: email addr complete
 	// group 2: email without mailto:
