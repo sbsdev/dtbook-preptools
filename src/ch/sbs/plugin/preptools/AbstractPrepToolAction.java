@@ -1000,8 +1000,8 @@ class UrlChangeAction extends AbstractChangeAction {
 			+ PrepToolLoader.URL_TAG + ">";
 
 	private static final String URL_REPLACE_WITH_HTTP = "<"
-			+ PrepToolLoader.URL_TAG + " href=\"http://$3\" external=\"true\"><span class=\"brl:computer\">"
-			+ "$0" + "</span></" + PrepToolLoader.URL_TAG + ">";
+			+ PrepToolLoader.URL_TAG + " href=\"http://$3\" external=\"true\"><brl:computer>"
+			+ "$0" + "</brl:computer></" + PrepToolLoader.URL_TAG + ">";
 
 }
 
