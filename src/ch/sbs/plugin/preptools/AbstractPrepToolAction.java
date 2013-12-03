@@ -992,11 +992,11 @@ class UrlChangeAction extends AbstractChangeAction {
 	}
 
 	private static final String EMAIL_REPLACE = "<" + PrepToolLoader.URL_TAG
-			+ " href=\"mailto:$2\" external=\"true\">" + "$0" + "</"
+			+ " href=\"mailto:$2\" external=\"true\"><brl:computer>" + "$0" + "</brl:computer></"
 			+ PrepToolLoader.URL_TAG + ">";
 
 	private static final String URL_REPLACE = "<" + PrepToolLoader.URL_TAG
-			+ " href=\"$3\" external=\"true\">" + "$0" + "</"
+			+ " href=\"$3\" external=\"true\"><brl:computer>" + "$0" + "</brl:computer></"
 			+ PrepToolLoader.URL_TAG + ">";
 
 	private static final String URL_REPLACE_WITH_HTTP = "<"

@@ -399,7 +399,7 @@
 	</target>
 
 	<target name="test" depends="compile,compile-test" description="junit">
-	  <junit printsummary="off" logfailedtests="true">
+	  <junit printsummary="false" logfailedtests="true">
             <classpath>
 	      <fileset dir="lib">
                 <include name="**/*.jar"/>
@@ -412,6 +412,7 @@
 		<include name="**/*Test.java"/>
 	      </fileset>
             </batchtest>
+	    <formatter type="brief" usefile="false"/>
 	  </junit>
 	</target>
 
