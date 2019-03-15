@@ -50,7 +50,7 @@ public class PrepToolLoader {
 	// http://de.selfhtml.org/html/referenz/zeichen.htm#benannte_griechisch
 	// Eines ist das Mikro-Zeichen &micro; das andere ist das kleine mü &mu;
 	public static final String MEASURE_NUM_TYPE = "measure";
-	public static final String MEASURE_SEARCH_REGEX = "\\b\\d*[.,'0-9]*\\d+\\s*(?iu:(([a-dg-hj-np-tv-zÅµμΩ²³]{1,4}|min|se[ck]|[km]*mol)\\s*/\\s*([a-dg-hj-np-tv-zÅµμΩ²³]{1,4}|min|se[ck]|[km]*mol)|([a-dg-hj-np-tv-zÅµμΩ²³]{1,4}|min|se[ck]|[km]*mol)))(?!\\p{L})";
+	public static final String MEASURE_SEARCH_REGEX = "\\b\\d*[.,'0-9]*\\d+\\s*(?iu:(([a-eg-hj-np-tv-zÅµμΩ²³]{1,4}|min|se[ck]|[km]*mol)\\s*/\\s*([a-eg-hj-np-tv-zÅµμΩ²³]{1,4}|min|se[ck]|[km]*mol)|([a-eg-hj-np-tv-zÅµμΩ²³]{1,4}|min|se[ck]|[km]*mol)))(?!\\p{L})";
 	public static final String MEASURE_TAG = makeNumTag(MEASURE_NUM_TYPE);
 	public static final String MEASURE_SKIP_REGEX = makeNumProtectRegex(MEASURE_NUM_TYPE);
 

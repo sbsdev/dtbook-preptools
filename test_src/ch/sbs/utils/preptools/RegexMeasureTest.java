@@ -178,6 +178,46 @@ public class RegexMeasureTest {
 	}
 
 	@Test
+	public void testMeasureEL() {
+		final Pattern pattern = Pattern.compile("("
+				+ PrepToolLoader.MEASURE_SEARCH_REGEX + ")");
+		final String focus = "2 EL";
+		final String input = "bla " + focus + " blu";
+		final String expected = "bla _" + focus + "_ blu";
+		assertEquals(expected, pattern.matcher(input).replaceAll("_$1_"));
+	}
+
+	@Test
+	public void testMeasureEL2() {
+		final Pattern pattern = Pattern.compile("("
+				+ PrepToolLoader.MEASURE_SEARCH_REGEX + ")");
+		final String focus = "2.7'000 EL";
+		final String input = "bla " + focus + " blu";
+		final String expected = "bla _" + focus + "_ blu";
+		assertEquals(expected, pattern.matcher(input).replaceAll("_$1_"));
+	}
+
+ 	@Test
+	public void testMeasureTL() {
+		final Pattern pattern = Pattern.compile("("
+				+ PrepToolLoader.MEASURE_SEARCH_REGEX + ")");
+		final String focus = "2 TL";
+		final String input = "bla " + focus + " blu";
+		final String expected = "bla _" + focus + "_ blu";
+		assertEquals(expected, pattern.matcher(input).replaceAll("_$1_"));
+	}
+
+ 	@Test
+	public void testMeasureDM() {
+		final Pattern pattern = Pattern.compile("("
+				+ PrepToolLoader.MEASURE_SEARCH_REGEX + ")");
+		final String focus = "2,5 DM";
+		final String input = "bla " + focus + " blu";
+		final String expected = "bla _" + focus + "_ blu";
+		assertEquals(expected, pattern.matcher(input).replaceAll("_$1_"));
+	}
+
+    @Test
 	public void testExponents() {
 
 		final Pattern pattern = Pattern.compile("("
