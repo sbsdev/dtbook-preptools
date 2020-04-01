@@ -92,25 +92,30 @@ public class RegexAbbrevTest {
 				.compile(PrepToolLoader.ABBREV_SEARCH_REGEX);
 
 		assertTrue(pattern.matcher("blabla Abb. 232 blabla").find());
-		assertEquals("blabla <abbr>Abb. </abbr>232 blabla",
+		assertEquals("blabla <abbr>Abb.</abbr>&sp;232 blabla",
 				AbbrevChangeAction.changeAbbrevFollowedByDigit(pattern,
 						"blabla Abb. 232 blabla"));
 
 		assertTrue(pattern.matcher("blabla Nr. 3 blabla").find());
-		assertEquals("blabla <abbr>Nr. </abbr>3 blabla",
+		assertEquals("blabla <abbr>Nr.</abbr>&sp;3 blabla",
 				AbbrevChangeAction.changeAbbrevFollowedByDigit(pattern,
 						"blabla Nr. 3 blabla"));
 
 		assertTrue(pattern.matcher("blabla Bd. 33 blabla").find());
-		assertEquals("blabla <abbr>Bd. </abbr>33 blabla",
+		assertEquals("blabla <abbr>Bd.</abbr>&sp;33 blabla",
 				AbbrevChangeAction.changeAbbrevFollowedByDigit(pattern,
 						"blabla Bd. 33 blabla"));
 
 		// Feature 1628: Match single capital letters in Abbreviation-PrepTool
 		assertTrue(pattern.matcher("S. 232").find());
-		assertEquals("blabla <abbr>S. </abbr>3 blabla",
+		assertEquals("blabla <abbr>S.</abbr>&sp;3 blabla",
 				AbbrevChangeAction.changeAbbrevFollowedByDigit(pattern,
 						"blabla S. 3 blabla"));
+
+		assertEquals("blabla <abbr>z.B.</abbr> 3 blabla",
+			     AbbrevChangeAction.changeAbbrevFollowedByDigit(pattern, "blabla z.B. 3 blabla"));
+		assertEquals("blabla <abbr>z. B.</abbr> 3 blabla",
+			     AbbrevChangeAction.changeAbbrevFollowedByDigit(pattern, "blabla z. B. 3 blabla"));
 	}
 
 }

@@ -874,11 +874,11 @@ class AbbrevChangeAction extends AbstractChangeAction {
 			final String input) {
 		final Matcher matcher = pattern.matcher(input);
 		matcher.find();
-		if (matcher.group(3) == null) {
-			return pattern.matcher(input).replaceAll("<abbr>$1</abbr>$2");
+		if (matcher.group(4) == null) {
+			return pattern.matcher(input).replaceAll("<abbr>$1</abbr>&sp;$3");
 		}
 		else {
-			return pattern.matcher(input).replaceAll("<abbr>$3</abbr>");
+			return pattern.matcher(input).replaceAll("<abbr>$4</abbr>");
 		}
 	}
 
