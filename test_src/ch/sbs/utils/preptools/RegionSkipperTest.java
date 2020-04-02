@@ -97,6 +97,16 @@ public class RegionSkipperTest {
 	}
 
 	@Test
+	public void testImageSkipper() {
+		final RegionSkipper imageSkipper = RegionSkipper.getDefaultSkipper();
+		final String txt = "\nhallo\n<img src=\"image001.jpg\" alt=\"Illustration\"/>\nhier\n";
+		imageSkipper.findRegionsToSkip(txt);
+		assertFalse(imageSkipper.inSkipRegion(makeMatcher("hallo", txt)));
+		assertTrue(imageSkipper.inSkipRegion(makeMatcher("Illustration", txt)));
+		assertFalse(imageSkipper.inSkipRegion(makeMatcher("hier", txt)));
+	}
+
+	@Test
 	public void testHeaderSkipper1() {
 		final RegionSkipper commentSkipper = RegionSkipper
 				.getDefaultSkipper();

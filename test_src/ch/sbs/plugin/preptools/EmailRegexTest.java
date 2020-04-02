@@ -7,6 +7,10 @@ import static org.junit.Assert.assertTrue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ch.sbs.utils.preptools.Match;
+import ch.sbs.utils.preptools.MarkupUtil;
+import ch.sbs.utils.preptools.RegionSkipper;
+
 import org.junit.Test;
 
 /**
@@ -100,4 +104,22 @@ public class EmailRegexTest {
 		assertTrue(pattern.matcher("http://bla/blo/index.html").matches());
 		assertTrue(pattern.matcher("http://bla/blo/index.php?x=1&y=2").matches());
 	}
+
+        @Test
+	public void testUrl05() {
+		final Pattern pattern = Pattern.compile(PrepToolLoader.EMAIL_URL_SEARCH_REGEX);
+
+		assertTrue(pattern.matcher("image001.jpg").matches());
+
+		final MarkupUtil mu = new MarkupUtil(RegionSkipper.getDefaultSkipper());
+		final String text = "<p><img src=\"image001.jpg\"/></p>";
+
+		final Match match = mu.find(text, 0, pattern);
+
+		assertEquals(match, Match.NULL_MATCH);
+		final String text2 = "<p><img src=\"image001.jpg\"/>foo.123</p>";
+		final Match match2 = mu.find(text2, 0, pattern);
+                assertFalse(match2.equals(Match.NULL_MATCH));
+    	}
+
 }

@@ -156,6 +156,15 @@ public class RegionSkipper {
 	}
 
 	/**
+	 * Creates a regex for images
+	 * 
+	 * @return The regex for the image.
+	 */
+	static String makeImageRegex() {
+	    return "<img[^>]*>";
+	}
+
+	/**
 	 * Creates a skipper for comments.
 	 * 
 	 * @return
@@ -181,7 +190,10 @@ public class RegionSkipper {
 	 */
 	public static RegionSkipper getDefaultSkipper() {
 		final RegionSkipper skipper = new RegionSkipper(makeLiteralRegex());
-		skipper.addPattern(makeCommentRegex()).addPattern(makeHeaderRegex());
+		skipper
+		    .addPattern(makeCommentRegex())
+		    .addPattern(makeHeaderRegex())
+		    .addPattern(makeImageRegex());
 		return skipper;
 	}
 }
