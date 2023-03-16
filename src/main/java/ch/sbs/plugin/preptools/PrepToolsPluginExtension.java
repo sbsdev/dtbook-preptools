@@ -126,6 +126,7 @@ public class PrepToolsPluginExtension implements WorkspaceAccessPluginExtension 
 		final RegionSkipper compositeSkipper = RegionSkipper
 				.getDefaultSkipper();
 		for (final String tagRegexToSkip : tagRegexesToSkip) {
+			this.showMessage("Adding skipper for: " + tagRegexToSkip);
 			compositeSkipper.addPattern(RegionSkipper
 					.makeMarkupRegex(tagRegexToSkip));
 		}
