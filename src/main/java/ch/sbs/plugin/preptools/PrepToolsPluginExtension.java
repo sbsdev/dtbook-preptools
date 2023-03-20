@@ -277,7 +277,7 @@ public class PrepToolsPluginExtension implements WorkspaceAccessPluginExtension 
 			 */
 			@SuppressWarnings("serial")
 			private void customizeExistingMenuEntries(final JMenuBar mainMenuBar) {
-				final String[] revertLabel = { "Revert...", "Rückgängig..." };
+				final String[] revertLabel = { "Undo", "Rückgängig" };
 				boolean plug = MenuPlugger.plug(mainMenuBar, revertLabel,
 						new MenuPlugger.ActionWrapper() {
 
@@ -317,7 +317,7 @@ public class PrepToolsPluginExtension implements WorkspaceAccessPluginExtension 
 					pluginWorkspaceAccess.showErrorMessage("plugging \""
 							+ StringUtils.join(revertLabel) + "\" failed.");
 				}
-				final String[] saveAsLabel = { "Save As...",
+				final String[] saveAsLabel = { "Save as...",
 						"Datei speichern unter..." };
 				plug = MenuPlugger.plug(mainMenuBar, saveAsLabel,
 						new MenuPlugger.ActionWrapper() {
