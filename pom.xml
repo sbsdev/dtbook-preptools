@@ -16,6 +16,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
+    <wordhierarchy.version>1.0-SNAPSHOT</wordhierarchy.version>
+    <interval-tree.version>1.0-SNAPSHOT</interval-tree.version>
   </properties>
 
   <repositories>
@@ -35,12 +37,12 @@
     <dependency>
       <groupId>net.xmlizer</groupId>
       <artifactId>wordhierarchy</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>${wordhierarchy.version}</version>
     </dependency>
     <dependency>
       <groupId>org.arabidopsis</groupId>
       <artifactId>interval-tree</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>${interval-tree.version}</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
