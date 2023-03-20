@@ -8,9 +8,8 @@
   <artifactId>dtbook-preptools</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
   <name>dtbook-preptools</name>
+  <url>https://github.com/sbsdev/dtbook-preptools</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
