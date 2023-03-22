@@ -1,25 +1,21 @@
-dtbook-preptools
-================
+# dtbook-preptools
 
 This project provides a plugin to the [oXygen XML Editor](http://www.oxygenxml.com/) that allows simple marking up of
 dtbook-files as a preparatory step to translation to [Braille](http://en.wikipedia.org/wiki/Braille).
 
 
-Prerequisite installs
----------------------
+# Prerequisite installs
 
 * [oXygen XML Editor](http://www.oxygenxml.com/)
 
 
-Developing with [eclipse](http://eclipse.org/)
------------------------------------------------
+# Developing with [eclipse](http://eclipse.org/)
 
 In order to work on this project with [eclipse](http://eclipse.org/) you need to run the ant "compile"
 task once after importing the project into eclipse in order for the required "generated_src" 
 source folder to be generated.
 
-Debugging
----------
+# Debugging
 
 You can choose whether to connect to a running instance of oxygen or to monitor it from its start.
 Invoke oxygen startup (a shell script to be found in the oxygen installation directory that is named
@@ -33,16 +29,32 @@ debugger connects. The port to connect to is given from the oxygen command on st
 
     Listening for transport dt_socket at address: <number>
 
-Authors
--------
+# Build
+
+```
+mvn -B package
+```
+
+# Release
+
+```
+mvn release:prepare
+```
+
+Perform a release without deploying.
+
+```
+mvn release:perform -Darguments="-Dmaven.deploy.skip=true"
+```
+
+# Authors
 
 **Bernhard Wagner**
 
 + http://xmlizer.net
 + http://github.com/bwagner
 
-License
----------------------
+# License
 
 Copyright 2011 SBS.
 
