@@ -11,6 +11,14 @@
   <name>dtbook-preptools</name>
   <url>https://github.com/sbsdev/dtbook-preptools</url>
 
+  <scm>
+    <connection>scm:git:git://github.com/sbsdev/dtbook-preptools.git</connection>
+    <developerConnection>scm:git:git@github.com:sbsdev/dtbook-preptools.git</developerConnection>
+    <url>https://github.com/sbsdev/dtbook-preptools/tree/master</url>
+    <tag>HEAD</tag>
+  </scm>
+
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
