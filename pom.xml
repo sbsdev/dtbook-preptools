@@ -34,12 +34,12 @@
       <version>25.0.0.0</version>
     </dependency>
     <dependency>
-      <groupId>net.xmlizer</groupId>
+      <groupId>ch.sbs.preptools</groupId>
       <artifactId>wordhierarchy</artifactId>
       <version>${wordhierarchy.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.arabidopsis</groupId>
+      <groupId>ch.sbs.preptools</groupId>
       <artifactId>interval-tree</artifactId>
       <version>${interval-tree.version}</version>
     </dependency>
