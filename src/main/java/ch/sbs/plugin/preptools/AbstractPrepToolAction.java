@@ -875,7 +875,7 @@ class AbbrevChangeAction extends AbstractChangeAction {
 		final Matcher matcher = pattern.matcher(input);
 		matcher.find();
 		if (matcher.group(4) == null) {
-			return pattern.matcher(input).replaceAll("<abbr>$1</abbr>&sp;$3");
+			return pattern.matcher(input).replaceAll("<abbr>$1</abbr>&csp;$3");
 		}
 		else {
 			return pattern.matcher(input).replaceAll("<abbr>$4</abbr>");
