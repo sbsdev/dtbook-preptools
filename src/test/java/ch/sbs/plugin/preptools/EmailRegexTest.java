@@ -122,4 +122,10 @@ public class EmailRegexTest {
                 assertFalse(match2.equals(Match.NULL_MATCH));
     	}
 
+	@Test
+	public void testUrl06() {
+	    // make sure the URL doesn't match the author tag
+	    final Pattern pattern = Pattern.compile(PrepToolLoader.URL_SKIP_REGEX);
+	    assertFalse(pattern.matcher("<p><author>Testing</author></p>").find());
+	}
 }
