@@ -111,7 +111,7 @@ public class RegionSkipper {
 	 */
 	public static String makeMarkupRegex(final String tag) {
 		final StringBuilder sb = new StringBuilder();
-		final String OPENING_TAG = "<" + tag + "\\s*>";
+		final String OPENING_TAG = "<" + tag + "\\s*(?<!/)>";
 		final String NON_GREEDY_CONTENT = "(?s:.*?)";
 		final String CLOSING_TAG = "</" + MarkupUtil.getClosingTag(tag)
 				+ "\\s*>";
