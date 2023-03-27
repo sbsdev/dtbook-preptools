@@ -78,7 +78,6 @@ public class PrepToolLoader {
 	// TODO: complete regex with oct chars
 	private static final String EMAIL_SEARCH_REGEX = "(?:mailto:)?([-!#$%&'*+/=?^_`{}|~0-9A-Z]+(?:\\.[-!#$%&'*+/=?^_`{}|~0-9A-Z]+)*@(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\\.)+[A-Z]{2,6})";
 	public static final String URL_TAG = "a";
-	public static final String URL_SKIP_REGEX = "a [^>]*";
 
         public static final String URL_SEARCH_REGEX = "\\w[^\\s<>]*([a-z]\\.\\w|\\w\\.[a-z]|[a-z]://\\w)[^\\s<>]*\\w";
 
@@ -123,7 +122,7 @@ public class PrepToolLoader {
 
 		prepTools.add(new FullRegexPrepTool(thePrepToolsPluginExtension, i++,
 				'u', "Url/Email", EMAIL_URL_SEARCH_REGEX, URL_TAG,
-				URL_SKIP_REGEX, null, new UrlChangeAction(
+				null, null, new UrlChangeAction(
 						thePrepToolsPluginExtension, "Change",
 						EMAIL_URL_SEARCH_REGEX, "Url/Email")));
 

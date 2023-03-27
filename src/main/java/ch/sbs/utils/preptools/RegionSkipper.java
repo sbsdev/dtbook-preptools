@@ -183,6 +183,15 @@ public class RegionSkipper {
 	}
 
 	/**
+	 * Creates a regex for skipping anchors.
+	 * 
+	 * @return regex for skipping anchors.
+	 */
+	static String makeAnchorRegex() {
+		return "(?s:<a\\b[^>]+(?<!/)>(?:.*?)</a\\s*>|<a\\b[^>]*/>)";
+	}
+
+	/**
 	 * Creates a RegionSkipper for skipping literal sections, comments, and
 	 * everything up to the opening book tag.
 	 * 
@@ -193,7 +202,8 @@ public class RegionSkipper {
 		skipper
 		    .addPattern(makeCommentRegex())
 		    .addPattern(makeHeaderRegex())
-		    .addPattern(makeImageRegex());
+		    .addPattern(makeImageRegex())
+		    .addPattern(makeAnchorRegex());
 		return skipper;
 	}
 }

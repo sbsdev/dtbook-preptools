@@ -136,8 +136,7 @@ public class RegionSkipperTest {
 	@Test
 	public void testAnchorSkipper() {
 		final RegionSkipper skipper = RegionSkipper.getDefaultSkipper();
-		skipper.addPattern(RegionSkipper.makeMarkupRegex(PrepToolLoader.URL_SKIP_REGEX));
-		final String txt = "\n<a href\"haha\">bonsoir\n\nvous\n\n</a> not skipped";
+		final String txt = "\n<a href=\"haha\">bonsoir\n\nvous\n\n</a> not skipped";
 		skipper.findRegionsToSkip(txt);
 		assertTrue(skipper.inSkipRegion(makeMatcher("bonsoir", txt)));
 		assertTrue(skipper.inSkipRegion(makeMatcher("vous", txt)));
@@ -148,8 +147,7 @@ public class RegionSkipperTest {
 	@Test
 	public void testEmptyElementAnchorSkipper() {
 		final RegionSkipper skipper = RegionSkipper.getDefaultSkipper();
-		skipper.addPattern(RegionSkipper.makeMarkupRegex(PrepToolLoader.URL_SKIP_REGEX));
-		final String txt = "\n<a href\"haha\"/>bonsoir\n\nvous\n\n<a href\"hihi\">taxonomy</a> is not skipped";
+		final String txt = "\n<a href=\"haha\"/>bonsoir\n\nvous\n\n<a href\"hihi\">taxonomy</a> is not skipped";
 		skipper.findRegionsToSkip(txt);
 		assertTrue(skipper.inSkipRegion(makeMatcher("haha", txt)));
 		assertFalse(skipper.inSkipRegion(makeMatcher("bonsoir", txt)));
@@ -158,6 +156,16 @@ public class RegionSkipperTest {
 		assertFalse(skipper.inSkipRegion(makeMatcher("is", txt)));
 		assertFalse(skipper.inSkipRegion(makeMatcher("not", txt)));
 		assertFalse(skipper.inSkipRegion(makeMatcher("skipped", txt)));
+	}
+
+    	@Test
+	public void testNotSkippingAuthor() {
+	    final RegionSkipper skipper = RegionSkipper.getDefaultSkipper();
+	    final String txt = "\n<author>Hans Meier</author>not skipped";
+	    assertFalse(skipper.inSkipRegion(makeMatcher("Hans", txt)));
+	    assertFalse(skipper.inSkipRegion(makeMatcher("Meier", txt)));
+	    assertFalse(skipper.inSkipRegion(makeMatcher("not", txt)));
+	    assertFalse(skipper.inSkipRegion(makeMatcher("skipped", txt)));
 	}
 
 	private static Matcher makeMatcher(final String thePattern,
