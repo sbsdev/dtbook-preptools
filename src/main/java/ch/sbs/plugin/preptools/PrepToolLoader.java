@@ -94,8 +94,7 @@ public class PrepToolLoader {
 
 		prepTools.add(new VFormPrepTool(thePrepToolsPluginExtension, i++, 'o'));
 
-		prepTools
-				.add(new ParensPrepTool(thePrepToolsPluginExtension, i++, 's'));
+		prepTools.add(new ParensPrepTool(thePrepToolsPluginExtension, i++, 's'));
 
 		prepTools.add(new FullRegexPrepTool(thePrepToolsPluginExtension, i++,
 				'd', "Ordinal", ORDINAL_SEARCH_REGEX, ORDINAL_TAG,
@@ -129,8 +128,7 @@ public class PrepToolLoader {
 		prepTools.add(new PageBreakPrepTool(thePrepToolsPluginExtension, i++,
 				'k'));
 
-		prepTools
-				.add(new AccentPrepTool(thePrepToolsPluginExtension, i++, 'a'));
+		prepTools.add(new AccentPrepTool(thePrepToolsPluginExtension, i++, 'a'));
 
 		return prepTools;
 	}
