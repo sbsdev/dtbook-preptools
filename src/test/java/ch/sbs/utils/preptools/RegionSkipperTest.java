@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import org.junit.Test;
 
 import ch.sbs.plugin.preptools.VFormActionHelper;
+import ch.sbs.plugin.preptools.PrepToolLoader;
 import ch.sbs.utils.preptools.vform.VFormUtil;
 
 /**
@@ -130,6 +131,18 @@ public class RegionSkipperTest {
 		assertFalse(commentSkipper.inSkipRegion(makeMatcher("hallo", theText)));
 		assertFalse(commentSkipper.inSkipRegion(makeMatcher("du", theText)));
 		assertFalse(commentSkipper.inSkipRegion(makeMatcher("hier", theText)));
+	}
+
+	@Test
+	public void testAnchorSkipper() {
+		final RegionSkipper skipper = RegionSkipper.getDefaultSkipper();
+		skipper.addPattern(RegionSkipper.makeMarkupRegex(PrepToolLoader.URL_SKIP_REGEX));
+		final String txt = "\n<a href\"haha\">bonsoir\n\nvous\n\n</a> not skipped";
+		skipper.findRegionsToSkip(txt);
+		assertTrue(skipper.inSkipRegion(makeMatcher("bonsoir", txt)));
+		assertTrue(skipper.inSkipRegion(makeMatcher("vous", txt)));
+		assertFalse(skipper.inSkipRegion(makeMatcher("not", txt)));
+		assertFalse(skipper.inSkipRegion(makeMatcher("skipped", txt)));
 	}
 
 	private static Matcher makeMatcher(final String thePattern,
