@@ -29,6 +29,10 @@ debugger connects. The port to connect to is given from the oxygen command on st
 
     Listening for transport dt_socket at address: <number>
 
+## Regexp Debugging
+
+For interactive exploration of regular expressions try https://regex101.com
+
 # Build
 
 ```
