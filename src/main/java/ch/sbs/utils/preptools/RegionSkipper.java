@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print Disabled
+ * Copyright (C) 2010,2023 Swiss Library for the Blind, Visually Impaired and Print Disabled
  *
  * This file is part of dtbook-preptools.
  *
