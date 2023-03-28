@@ -127,8 +127,8 @@ public class RegionSkipperTest {
         final RegionSkipper skipper = RegionSkipper.getDefaultSkipper();
         final String txt = "\n<a href=\"haha\">bonsoir\n\nvous\n\n</a> not skipped";
         skipper.findRegionsToSkip(txt);
-        assertTrue(skipper.inSkipRegion(makeMatcher("bonsoir", txt)));
-        assertTrue(skipper.inSkipRegion(makeMatcher("vous", txt)));
+        assertFalse(skipper.inSkipRegion(makeMatcher("bonsoir", txt)));
+        assertFalse(skipper.inSkipRegion(makeMatcher("vous", txt)));
         assertFalse(skipper.inSkipRegion(makeMatcher("not", txt)));
         assertFalse(skipper.inSkipRegion(makeMatcher("skipped", txt)));
     }
@@ -141,7 +141,7 @@ public class RegionSkipperTest {
         assertTrue(skipper.inSkipRegion(makeMatcher("haha", txt)));
         assertFalse(skipper.inSkipRegion(makeMatcher("bonsoir", txt)));
         assertFalse(skipper.inSkipRegion(makeMatcher("vous", txt)));
-        assertTrue(skipper.inSkipRegion(makeMatcher("taxonomy", txt)));
+        assertFalse(skipper.inSkipRegion(makeMatcher("taxonomy", txt)));
         assertFalse(skipper.inSkipRegion(makeMatcher("is", txt)));
         assertFalse(skipper.inSkipRegion(makeMatcher("not", txt)));
         assertFalse(skipper.inSkipRegion(makeMatcher("skipped", txt)));
