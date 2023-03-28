@@ -2,4 +2,4 @@
 ;;; See Info node `(emacs) Directory Variables' for more information.
 
 ((nil
-  (compile-command . "ant -e clean zip")))
+  (compile-command . "mvn -B clean package")))

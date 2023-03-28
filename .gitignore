@@ -1,14 +1,4 @@
-/.settings
 *~
-/MANIFEST.MF
-/TAGS
-/bin
-/build.properties
-/dtbook-preptools.jar
-/dtbook-preptools.zip
-/generated_src
-/plugin.xml
-/stamp.properties
 /target/
 /GPATH
 /GRTAGS
