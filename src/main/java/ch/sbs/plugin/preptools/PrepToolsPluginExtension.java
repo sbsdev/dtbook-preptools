@@ -23,7 +23,6 @@ package ch.sbs.plugin.preptools;
 import ch.sbs.plugin.preptools.DocumentMetaInfo.PrepToolState;
 import ch.sbs.utils.preptools.FileUtils;
 import ch.sbs.utils.preptools.PositionMatch;
-import ch.sbs.utils.preptools.PropsUtils;
 import ch.sbs.utils.preptools.RegionSkipper;
 import ch.sbs.utils.string.StringUtils;
 import ch.sbs.utils.swing.MenuPlugger;
@@ -550,20 +549,14 @@ public class PrepToolsPluginExtension implements WorkspaceAccessPluginExtension 
     }
 
     private String getVersion() {
-        final String key = "stamp";
-        final String filename = "stamp.properties";
-        final String version =
-                PropsUtils.loadForClass(this.getClass(), filename).getProperty(key);
-        final String returnString;
-        if (version != null && version.length() > 0) {
-            returnString = version;
-        } else {
-            returnString = "'" + key + "' not found in props file " + filename;
-        }
+	FileUtils object = new FileUtils();
+	Package pkg = object.getClass().getPackage();
+	String name = pkg.getSpecificationTitle();
+        String version = pkg.getSpecificationVersion();
+        final String preptoolVersion = String.format("%s: %s\n", name, version);
+        final String oxygenVersion = String.format("Oxygen-Version: %s\n", pluginWorkspaceAccess.getVersion());
 
-        final String oxygenVersion = "\nOxygen-Version:" + pluginWorkspaceAccess.getVersion() + "\n";
-
-        return returnString + oxygenVersion;
+        return preptoolVersion + oxygenVersion;
     }
 
     /**

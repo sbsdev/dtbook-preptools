@@ -35,7 +35,6 @@ import org.junit.runners.Suite;
     DocumentUtilsTest.class,
     FileUtilsTest.class,
     ParensUtilTest.class,
-    PropsUtilsTest.class,
     RegexAbbrevTest.class,
     RegexMeasureTest.class,
     RegexOrdinalTest.class,
