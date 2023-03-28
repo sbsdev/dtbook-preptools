@@ -71,11 +71,13 @@
       <plugin>
 	<groupId>org.apache.maven.plugins</groupId>
 	<artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
 	<configuration>
           <archive>
             <manifest>
               <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
               <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+	      <addBuildEnvironmentEntries>true</addBuildEnvironmentEntries>
             </manifest>
           </archive>
 	</configuration>
