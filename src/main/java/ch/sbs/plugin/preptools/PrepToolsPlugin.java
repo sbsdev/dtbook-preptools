@@ -9,15 +9,15 @@ public class PrepToolsPlugin extends Plugin {
     private static PrepToolsPlugin instance = null;
 
     public PrepToolsPlugin(PluginDescriptor descriptor) {
-	super(descriptor);
+        super(descriptor);
 
-	if (instance != null) {
-	    throw new IllegalStateException("Already instantiated!");
-	}
-	instance = this;
+        if (instance != null) {
+            throw new IllegalStateException("Already instantiated!");
+        }
+        instance = this;
     }
 
     public static PrepToolsPlugin getInstance() {
-	return instance;
+        return instance;
     }
 }

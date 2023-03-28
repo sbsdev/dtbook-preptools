@@ -9,15 +9,15 @@ public class PrepToolsValidatorPlugin extends Plugin {
     private static PrepToolsValidatorPlugin instance = null;
 
     public PrepToolsValidatorPlugin(PluginDescriptor descriptor) {
-	super(descriptor);
+        super(descriptor);
 
-	if (instance != null) {
-	    throw new IllegalStateException("Already instantiated!");
-	}
-	instance = this;
+        if (instance != null) {
+            throw new IllegalStateException("Already instantiated!");
+        }
+        instance = this;
     }
 
     public static PrepToolsValidatorPlugin getInstance() {
-	return instance;
+        return instance;
     }
 }

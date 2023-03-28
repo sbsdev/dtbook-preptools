@@ -34,6 +34,14 @@ debugger connects. The port to connect to is given from the oxygen command on st
 ```
 mvn -B package
 ```
+Build GTAGS file
+```
+mvn -B exec:exec
+```
+Format the source code
+```
+mvn -B spotless:apply
+```
 
 # Release
 
