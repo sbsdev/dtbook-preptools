@@ -19,10 +19,10 @@ source folder to be generated.
 
 You can choose whether to connect to a running instance of oxygen or to monitor it from its start.
 Invoke oxygen startup (a shell script to be found in the oxygen installation directory that is named
-`oxygen` with the version number appended, e.g. `13.2`) with the following command line
+`oxygen` with the version number appended, e.g. `25.0`) with the following command line
 option. (This will be passed as a command line option to the '`java`' command):
 
-    oxygen13.2 -J-Xrunjdwp:transport=dt_socket,address=104442,server=y,suspend=$SUSPEND
+    oxygen25.0 -J-Xrunjdwp:transport=dt_socket,address=104442,server=y,suspend=$SUSPEND
     
 `$SUSPEND` can be either '`y`' or '`n`'. When '`y`', oXygen startup will be suspended until a
 debugger connects. The port to connect to is given from the oxygen command on stdout as follows:
