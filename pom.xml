@@ -11,7 +11,7 @@
   <url>https://github.com/sbsdev/dtbook-preptools</url>
 
   <scm>
-    <connection>scm:git:git://github.com/sbsdev/dtbook-preptools.git</connection>
+    <connection>scm:git:git@github.com:sbsdev/dtbook-preptools.git</connection>
     <developerConnection>scm:git:git@github.com:sbsdev/dtbook-preptools.git</developerConnection>
     <url>https://github.com/sbsdev/dtbook-preptools/tree/master</url>
     <tag>HEAD</tag>
