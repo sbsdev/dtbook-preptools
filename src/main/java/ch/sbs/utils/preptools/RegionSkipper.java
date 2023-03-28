@@ -181,6 +181,7 @@ public class RegionSkipper {
      * Creates a regex for skipping anchors.
      *
      * @return regex for skipping anchors.
+     * @see https://regex101.com/r/KqIbjT/1
      */
     static String makeAnchorRegex() {
         return "(?s:<a\\b[^>]+(?<!/)>(?:.*?)</a\\s*>|<a\\b[^>]*/>)";
