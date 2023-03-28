@@ -1,15 +1,4 @@
-package ch.sbs.utils.preptools;
-
-import static org.junit.Assert.assertEquals;
-
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-
-import org.junit.Test;
-
-import ch.sbs.plugin.preptools.VFormActionHelper;
-
-/**
+/*
 	* Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print Disabled
 	*
 	* This file is part of dtbook-preptools.
@@ -28,6 +17,17 @@ import ch.sbs.plugin.preptools.VFormActionHelper;
 	* License along with this program. If not, see
 	* <http://www.gnu.org/licenses/>.
 	*/
+
+package ch.sbs.utils.preptools;
+
+import static org.junit.Assert.assertEquals;
+
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+
+import org.junit.Test;
+
+import ch.sbs.plugin.preptools.VFormActionHelper;
 
 public class MetaUtilsTest {
 

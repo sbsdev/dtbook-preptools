@@ -1,14 +1,4 @@
-package ch.sbs.plugin.preptools;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.util.regex.Pattern;
-
-import org.junit.Test;
-
-/**
+/*
 	* Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print Disabled
 	*
 	* This file is part of dtbook-preptools.
@@ -27,6 +17,16 @@ import org.junit.Test;
 	* License along with this program. If not, see
 	* <http://www.gnu.org/licenses/>.
 	*/
+
+package ch.sbs.plugin.preptools;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.regex.Pattern;
+
+import org.junit.Test;
 
 public class RegexAbbrevTest {
 

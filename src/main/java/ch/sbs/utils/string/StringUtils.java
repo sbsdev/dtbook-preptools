@@ -1,8 +1,4 @@
-package ch.sbs.utils.string;
-
-import java.util.Arrays;
-
-/**
+/*
 	* Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print Disabled
 	*
 	* This file is part of dtbook-preptools.
@@ -21,6 +17,10 @@ import java.util.Arrays;
 	* License along with this program. If not, see
 	* <http://www.gnu.org/licenses/>.
 	*/
+
+package ch.sbs.utils.string;
+
+import java.util.Arrays;
 
 public class StringUtils {
 

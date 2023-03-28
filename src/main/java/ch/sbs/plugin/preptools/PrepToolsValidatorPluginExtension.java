@@ -1,15 +1,4 @@
-package ch.sbs.plugin.preptools;
-
-import ro.sync.exml.ComponentsValidator;
-import ro.sync.exml.editor.EditorTemplate;
-import ro.sync.exml.plugin.startup.ComponentsValidatorPluginExtension;
-
-/**
- * Default implementation. We're not using it, because it only offers filtering
- * GUI-components, while we want to keep the components but wrap them in other
- * operations (@see ch.sbs.utils.swing.MenuPlugger)
- */
-/**
+/*
 	* Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print Disabled
 	*
 	* This file is part of dtbook-preptools.
@@ -29,6 +18,17 @@ import ro.sync.exml.plugin.startup.ComponentsValidatorPluginExtension;
 	* <http://www.gnu.org/licenses/>.
 	*/
 
+package ch.sbs.plugin.preptools;
+
+import ro.sync.exml.ComponentsValidator;
+import ro.sync.exml.editor.EditorTemplate;
+import ro.sync.exml.plugin.startup.ComponentsValidatorPluginExtension;
+
+/**
+ * Default implementation. We're not using it, because it only offers filtering
+ * GUI-components, while we want to keep the components but wrap them in other
+ * operations (@see ch.sbs.utils.swing.MenuPlugger)
+ */
 public class PrepToolsValidatorPluginExtension implements
 		ComponentsValidatorPluginExtension {
 

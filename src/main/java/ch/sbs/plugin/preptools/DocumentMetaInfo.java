@@ -1,24 +1,5 @@
-package ch.sbs.plugin.preptools;
-
-import java.net.URL;
-import java.util.Map;
-
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-
-import ro.sync.exml.workspace.api.editor.page.text.WSTextEditorPage;
-import ch.sbs.utils.preptools.PositionMatch;
-
-/**
- * Keeps meta information about a document known to the plugin.
- * One DocumentMetaInfo object is maintained per document open in oXygen.
- * 
- */
-/**
- * Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print
- * Disabled
+/*
+ * Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print Disabled
  * 
  * This file is part of dtbook-preptools.
  * 
@@ -37,6 +18,24 @@ import ch.sbs.utils.preptools.PositionMatch;
  * <http://www.gnu.org/licenses/>.
  */
 
+package ch.sbs.plugin.preptools;
+
+import java.net.URL;
+import java.util.Map;
+
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+
+import ro.sync.exml.workspace.api.editor.page.text.WSTextEditorPage;
+import ch.sbs.utils.preptools.PositionMatch;
+
+/**
+ * Keeps meta information about a document known to the plugin.
+ * One DocumentMetaInfo object is maintained per document open in oXygen.
+ * 
+ */
 class DocumentMetaInfo {
 
 	static class PrepToolState {

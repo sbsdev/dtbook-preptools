@@ -1,14 +1,4 @@
-package ch.sbs.utils.preptools;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Properties;
-
-/**
+/*
 	* Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print Disabled
 	*
 	* This file is part of dtbook-preptools.
@@ -27,6 +17,16 @@ import java.util.Properties;
 	* License along with this program. If not, see
 	* <http://www.gnu.org/licenses/>.
 	*/
+
+package ch.sbs.utils.preptools;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Properties;
 
 public class PropsUtils {
 	private PropsUtils() {

@@ -1,7 +1,4 @@
-package ch.sbs.utils.preptools;
-import java.util.Iterator;
-
-/**
+/*
 	* Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print Disabled
 	*
 	* This file is part of dtbook-preptools.
@@ -20,6 +17,9 @@ import java.util.Iterator;
 	* License along with this program. If not, see
 	* <http://www.gnu.org/licenses/>.
 	*/
+
+package ch.sbs.utils.preptools;
+import java.util.Iterator;
 
 public class PermutationHelper implements Iterator<String[]>,
 		Iterable<String[]> {

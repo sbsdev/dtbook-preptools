@@ -1,15 +1,5 @@
-package ch.sbs.plugin.preptools;
-
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * TODO: preptools should load themselves. PrepToolLoader shouldn't know or care
- * about specific tools.
- */
-/**
- * Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print
- * Disabled
+/*
+ * Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print Disabled
  * 
  * This file is part of dtbook-preptools.
  * 
@@ -28,6 +18,15 @@ import java.util.List;
  * <http://www.gnu.org/licenses/>.
  */
 
+package ch.sbs.plugin.preptools;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * TODO: preptools should load themselves. PrepToolLoader shouldn't know or care
+ * about specific tools.
+ */
 public class PrepToolLoader {
 
 	// Ordnungszahlen

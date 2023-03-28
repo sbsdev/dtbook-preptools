@@ -1,12 +1,4 @@
-package ch.sbs.utils.preptools;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-
-/**
+/*
 	* Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print Disabled
 	*
 	* This file is part of dtbook-preptools.
@@ -25,6 +17,14 @@ import javax.swing.text.Document;
 	* License along with this program. If not, see
 	* <http://www.gnu.org/licenses/>.
 	*/
+
+package ch.sbs.utils.preptools;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 
 public class DocumentUtils {
 	/**

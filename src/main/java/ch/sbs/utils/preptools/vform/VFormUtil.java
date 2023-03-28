@@ -1,16 +1,5 @@
-package ch.sbs.utils.preptools.vform;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.regex.Pattern;
-
-import net.xmlizer.wordhierarchy.WordHierarchyBuilder;
-import ch.sbs.utils.preptools.MarkupUtil;
-
-/**
- * Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print
- * Disabled
+/*
+ * Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print Disabled
  * 
  * This file is part of dtbook-preptools.
  * 
@@ -28,6 +17,16 @@ import ch.sbs.utils.preptools.MarkupUtil;
  * License along with this program. If not, see
  * <http://www.gnu.org/licenses/>.
  */
+
+package ch.sbs.utils.preptools.vform;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Pattern;
+
+import net.xmlizer.wordhierarchy.WordHierarchyBuilder;
+import ch.sbs.utils.preptools.MarkupUtil;
 
 public class VFormUtil {
 	// Mail von Mischa Kuenzle 12.1.2011 15:09

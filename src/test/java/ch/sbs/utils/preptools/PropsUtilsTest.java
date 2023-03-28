@@ -1,17 +1,5 @@
-package ch.sbs.utils.preptools;
-
-import static org.junit.Assert.assertEquals;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Properties;
-
-import org.junit.Before;
-import org.junit.Test;
-
-/**
- * Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print
- * Disabled
+/*
+ * Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print Disabled
  * 
  * This file is part of dtbook-preptools.
  * 
@@ -29,6 +17,17 @@ import org.junit.Test;
  * License along with this program. If not, see
  * <http://www.gnu.org/licenses/>.
  */
+
+package ch.sbs.utils.preptools;
+
+import static org.junit.Assert.assertEquals;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+import org.junit.Before;
+import org.junit.Test;
 
 public class PropsUtilsTest {
 	private static final String PROPS_FILENAME = "stamp.properties";

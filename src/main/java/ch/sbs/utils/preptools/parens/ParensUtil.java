@@ -1,15 +1,4 @@
-package ch.sbs.utils.preptools.parens;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import ch.sbs.utils.preptools.Match;
-import ch.sbs.utils.preptools.RegionSkipper;
-
-/**
+/*
 	* Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print Disabled
 	*
 	* This file is part of dtbook-preptools.
@@ -28,6 +17,17 @@ import ch.sbs.utils.preptools.RegionSkipper;
 	* License along with this program. If not, see
 	* <http://www.gnu.org/licenses/>.
 	*/
+
+package ch.sbs.utils.preptools.parens;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import ch.sbs.utils.preptools.Match;
+import ch.sbs.utils.preptools.RegionSkipper;
 
 public class ParensUtil {
 

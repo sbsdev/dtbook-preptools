@@ -1,16 +1,5 @@
-package ch.sbs.plugin.preptools;
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.JComponent;
-
-/**
- * Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print
- * Disabled
+/*
+ * Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print Disabled
  * 
  * This file is part of dtbook-preptools.
  * 
@@ -28,6 +17,16 @@ import javax.swing.JComponent;
  * License along with this program. If not, see
  * <http://www.gnu.org/licenses/>.
  */
+
+package ch.sbs.plugin.preptools;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.swing.JComponent;
 
 @SuppressWarnings("serial")
 public class TrafficLight extends JComponent {

@@ -1,12 +1,4 @@
-package ch.sbs.utils.preptools;
-//--------------------------------------
-// Systematically generate permutations. 
-// http://www.merriampark.com/perm.htm
-//--------------------------------------
-
-import java.math.BigInteger;
-
-/**
+/*
 	* Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print Disabled
 	*
 	* This file is part of dtbook-preptools.
@@ -25,6 +17,14 @@ import java.math.BigInteger;
 	* License along with this program. If not, see
 	* <http://www.gnu.org/licenses/>.
 	*/
+
+package ch.sbs.utils.preptools;
+//--------------------------------------
+// Systematically generate permutations. 
+// http://www.merriampark.com/perm.htm
+//--------------------------------------
+
+import java.math.BigInteger;
 
 public class PermutationGenerator {
 

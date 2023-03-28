@@ -1,13 +1,5 @@
-package ch.sbs.plugin.preptools;
-
-import java.util.regex.Pattern;
-
-/**
- * Helper class to factor out common code in VFormActions.
- */
-/**
- * Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print
- * Disabled
+/*
+ * Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print Disabled
  * 
  * This file is part of dtbook-preptools.
  * 
@@ -26,6 +18,13 @@ import java.util.regex.Pattern;
  * <http://www.gnu.org/licenses/>.
  */
 
+package ch.sbs.plugin.preptools;
+
+import java.util.regex.Pattern;
+
+/**
+ * Helper class to factor out common code in VFormActions.
+ */
 public class VFormActionHelper {
 
 	public static final String VFORM_TAG = "brl:v-form";

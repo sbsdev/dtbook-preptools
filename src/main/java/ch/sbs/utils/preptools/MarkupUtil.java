@@ -1,9 +1,4 @@
-package ch.sbs.utils.preptools;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-/**
+/*
 	* Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print Disabled
 	*
 	* This file is part of dtbook-preptools.
@@ -22,6 +17,11 @@ import java.util.regex.Pattern;
 	* License along with this program. If not, see
 	* <http://www.gnu.org/licenses/>.
 	*/
+
+package ch.sbs.utils.preptools;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MarkupUtil {
 	private final RegionSkipper skipper;

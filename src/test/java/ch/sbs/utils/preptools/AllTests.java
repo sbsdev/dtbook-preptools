@@ -1,18 +1,5 @@
-package ch.sbs.utils.preptools;
-
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-
-import ch.sbs.plugin.preptools.AccentRegexTest;
-import ch.sbs.plugin.preptools.RegexAbbrevTest;
-import ch.sbs.plugin.preptools.RegexOrdinalTest;
-import ch.sbs.utils.preptools.parens.ParensUtilTest;
-import ch.sbs.utils.preptools.vform.VFormUtilTest;
-import ch.sbs.utils.string.StringUtilsTest;
-
-/**
- * Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print
- * Disabled
+/*
+ * Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print Disabled
  * 
  * This file is part of dtbook-preptools.
  * 
@@ -30,6 +17,18 @@ import ch.sbs.utils.string.StringUtilsTest;
  * License along with this program. If not, see
  * <http://www.gnu.org/licenses/>.
  */
+
+package ch.sbs.utils.preptools;
+
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
+import ch.sbs.plugin.preptools.AccentRegexTest;
+import ch.sbs.plugin.preptools.RegexAbbrevTest;
+import ch.sbs.plugin.preptools.RegexOrdinalTest;
+import ch.sbs.utils.preptools.parens.ParensUtilTest;
+import ch.sbs.utils.preptools.vform.VFormUtilTest;
+import ch.sbs.utils.string.StringUtilsTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ AccentRegexTest.class, DocumentUtilsTest.class,

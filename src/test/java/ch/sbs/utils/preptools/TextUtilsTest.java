@@ -1,11 +1,4 @@
-package ch.sbs.utils.preptools;
-
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
-public class TextUtilsTest {
-/**
+/*
 	* Copyright (C) 2010 Swiss Library for the Blind, Visually Impaired and Print Disabled
 	*
 	* This file is part of dtbook-preptools.
@@ -25,6 +18,13 @@ public class TextUtilsTest {
 	* <http://www.gnu.org/licenses/>.
 	*/
 
+package ch.sbs.utils.preptools;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+public class TextUtilsTest {
 	@Test
 	public void testI() {
 		assertEquals("(?i:bla)", TextUtils.wrapI("bla"));
