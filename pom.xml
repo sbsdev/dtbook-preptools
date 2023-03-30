@@ -5,7 +5,7 @@
 
   <groupId>ch.sbs.preptools</groupId>
   <artifactId>dtbook-preptools</artifactId>
-  <version>1.3-SNAPSHOT</version>
+  <version>1.3</version>
 
   <name>dtbook-preptools</name>
   <url>https://github.com/sbsdev/dtbook-preptools</url>
@@ -14,7 +14,7 @@
     <connection>scm:git:git@github.com:sbsdev/dtbook-preptools.git</connection>
     <developerConnection>scm:git:git@github.com:sbsdev/dtbook-preptools.git</developerConnection>
     <url>https://github.com/sbsdev/dtbook-preptools/tree/master</url>
-    <tag>HEAD</tag>
+    <tag>v1.3</tag>
   </scm>
 
 
