@@ -47,16 +47,11 @@ Format the source code
 mvn -B spotless:apply
 ```
 
-# Release
+# Release and deploy
 
 ```
 mvn release:prepare
-```
-
-Perform a release without deploying.
-
-```
-mvn release:perform -Darguments="-Dmaven.deploy.skip=true"
+mvn release:perform
 ```
 
 # Authors
