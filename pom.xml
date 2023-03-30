@@ -8,6 +8,7 @@
   <version>1.4-SNAPSHOT</version>
 
   <name>dtbook-preptools</name>
+  <description>A plugin for the oXygen XML Editor to help with markup of DTBook</description>
   <url>https://github.com/sbsdev/dtbook-preptools</url>
 
   <scm>
@@ -17,7 +18,6 @@
     <tag>HEAD</tag>
   </scm>
 
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -26,6 +26,27 @@
     <wordhierarchy.version>1.5</wordhierarchy.version>
     <interval-tree.version>1.1</interval-tree.version>
   </properties>
+
+  <licenses>
+    <license>
+      <name>GNU Lesser General Public License, Version 3</name>
+      <url>https://www.gnu.org/licenses/lgpl-3.0.html</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Christian Egli</name>
+      <email>christian.egli@sbs.ch</email>
+      <organization>Swiss Library for the Blind, Visually Impaired and Print Disabled</organization>
+      <organizationUrl>http://www.sbs.ch/</organizationUrl>
+    </developer>
+    <developer>
+      <name>Bernhard Wagner</name>
+      <email>web@bernhardwagner.net</email>
+      <organizationUrl>http://github.com/bwagner</organizationUrl>
+    </developer>
+  </developers>
 
   <repositories>
     <repository>
@@ -58,6 +79,19 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <name>Central Snapshot Repository OSSRH</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <name>Central Repository OSSRH</name>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
 
   <build>
     <resources>
@@ -128,6 +162,46 @@
             </palantirJavaFormat>
 	  </java>
 	</configuration>
+      </plugin>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-source-plugin</artifactId>
+	<version>2.2.1</version>
+	<executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+	</executions>
+      </plugin>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-javadoc-plugin</artifactId>
+	<version>3.5.0</version>
+	<executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+	</executions>
+      </plugin>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-gpg-plugin</artifactId>
+	<version>1.5</version>
+	<executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+	</executions>
       </plugin>
     </plugins>
   </build>
