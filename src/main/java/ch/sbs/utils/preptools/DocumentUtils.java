@@ -57,7 +57,7 @@ public class DocumentUtils {
      *            The document on which to perform the replacement.
      * @param theRegexToSearch
      *            The regex for which to search.
-     * @param replacement
+     * @param theReplacement
      *            The replacement for the found regex, may include
      *            backreferences (e.g. "$1")
      * @param theStart
