@@ -40,11 +40,6 @@
       <organization>Swiss Library for the Blind, Visually Impaired and Print Disabled</organization>
       <organizationUrl>http://www.sbs.ch/</organizationUrl>
     </developer>
-    <developer>
-      <name>Bernhard Wagner</name>
-      <email>web@bernhardwagner.net</email>
-      <organizationUrl>http://github.com/bwagner</organizationUrl>
-    </developer>
   </developers>
 
   <repositories>

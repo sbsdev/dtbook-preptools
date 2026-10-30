@@ -54,13 +54,6 @@ mvn release:prepare
 mvn release:perform
 ```
 
-# Authors
-
-**Bernhard Wagner**
-
-+ http://xmlizer.net
-+ http://github.com/bwagner
-
 # License
 
 Copyright 2011 SBS.
