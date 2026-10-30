@@ -29,6 +29,7 @@ import ch.sbs.utils.preptools.PositionMatch;
 import ch.sbs.utils.preptools.RegionSkipper;
 import ch.sbs.utils.preptools.TextUtils;
 import ch.sbs.utils.preptools.parens.ParensUtil;
+import ch.sbs.utils.preptools.vform.VFormUtil;
 import java.awt.event.ActionEvent;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -290,8 +291,18 @@ abstract class AbstractMarkupStartAction extends AbstractMarkupAction {
 
         metaInfo.setHasStarted(true);
         metaInfo.setDone(false);
+        beforeSearch(aWSTextEditorPage.getDocument());
         searchOn(aWSTextEditorPage, editorAccess, 0);
     }
+
+    /**
+     * Optional hook to change the document before the first match is
+     * searched. Runs in the same edit as the search, so one undo reverts it.
+     *
+     * @param document
+     * @throws BadLocationException
+     */
+    protected void beforeSearch(final Document document) throws BadLocationException {}
 }
 
 @SuppressWarnings("serial")
@@ -966,6 +977,26 @@ class VFormStartAction extends AbstractMarkupStartAction {
     VFormStartAction(final PrepToolsPluginExtension thePrepToolsPluginExtension, final String theName) {
         super(thePrepToolsPluginExtension, START);
         helper = new VFormActionHelper(thePrepToolsPluginExtension);
+    }
+
+    /**
+     * Marks up the polite forms in the middle of a sentence right away, so
+     * the user only has to decide on the ones at the start of a sentence.
+     */
+    @Override
+    protected void beforeSearch(final Document document) throws BadLocationException {
+        final String text = document.getText(0, document.getLength());
+        final List<Match> matches = VFormUtil.findMidSentence(text, prepToolsPluginExtension.makeSkipper());
+        final String openingTag = "<" + VFormActionHelper.VFORM_TAG + ">";
+        final String closingTag = "</" + VFormActionHelper.VFORM_TAG + ">";
+        // starting with the last one, so the offsets of the others don't shift
+        for (int i = matches.size() - 1; i >= 0; i--) {
+            final Match match = matches.get(i);
+            document.insertString(match.endOffset, closingTag, null);
+            document.insertString(match.startOffset, openingTag, null);
+        }
+        prepToolsPluginExtension.showMessage(
+                getPrepToolName() + ": marked up " + matches.size() + " forms in the middle of a sentence");
     }
 
     @Override

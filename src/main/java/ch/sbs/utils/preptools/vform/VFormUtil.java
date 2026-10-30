@@ -21,9 +21,14 @@
 package ch.sbs.utils.preptools.vform;
 
 import ch.sbs.utils.preptools.MarkupUtil;
+import ch.sbs.utils.preptools.Match;
+import ch.sbs.utils.preptools.RegionSkipper;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.xmlizer.wordhierarchy.WordHierarchyBuilder;
 
@@ -138,5 +143,135 @@ public class VFormUtil {
      */
     public static boolean matchesAll(final String text) {
         return MarkupUtil.matches(text, vFormPatternAll);
+    }
+
+    // Elements that don't interrupt a sentence. Any other tag (p, h1, li,
+    // line, sent, br, comments, ...) counts as the start of a sentence.
+    private static final Set<String> INLINE_ELEMENTS = new HashSet<String>(Arrays.asList(
+            "a",
+            "abbr",
+            "acronym",
+            "bdo",
+            "cite",
+            "code",
+            "dfn",
+            "em",
+            "kbd",
+            "samp",
+            "span",
+            "strong",
+            "sub",
+            "sup",
+            "var",
+            "brl:computer",
+            "brl:date",
+            "brl:emph",
+            "brl:homograph",
+            "brl:name",
+            "brl:num",
+            "brl:place",
+            "brl:time",
+            "brl:v-form"));
+
+    // Inline elements whose content is not part of the sentence
+    private static final Set<String> SKIPPED_ELEMENTS =
+            new HashSet<String>(Arrays.asList("annoref", "linenum", "noteref", "pagenum"));
+
+    // See vform_specs.txt, 1.1.3.1. Quotes, brackets and dashes are treated
+    // like a sentence start as well, so direct speech gets asked about.
+    private static final String SENTENCE_END = ".:!?…";
+    private static final String OPENERS = "„“”\"'«»‹›‚‘’()[]{}–—-/";
+
+    // "das Ihre", "die Ihren": nominalised, usually "theirs" rather than polite
+    private static final Pattern ARTICLE_BEFORE = Pattern.compile("(?i)(?<!\\p{L})(?:das|der|die|dem|den|des)\\s+$");
+
+    /**
+     * A capitalised polite form in the middle of a sentence is always a
+     * v-form. At the start of a sentence it might as well be "she" or "they".
+     * Works on the raw xml text, skipping inline markup and page numbers.
+     * Anything unclear counts as start of a sentence, so that the user is
+     * asked rather than the text being marked up wrongly.
+     *
+     * @param text
+     *            the text containing the form
+     * @param start
+     *            offset of the form in text
+     * @return true if the form at start is in the middle of a sentence
+     */
+    public static boolean isMidSentence(final String text, final int start) {
+        int i = start - 1;
+        if (i >= 0 && Character.isLetterOrDigit(text.charAt(i))) {
+            return false; // part of a longer word
+        }
+        while (i >= 0) {
+            final char c = text.charAt(i);
+            if (Character.isWhitespace(c) || Character.isSpaceChar(c)) {
+                i--;
+            } else if (c == '>') {
+                final int open = text.lastIndexOf('<', i);
+                if (open < 0) {
+                    return false;
+                }
+                final String tag = text.substring(open + 1, i);
+                final String name = tag.replaceFirst("^/", "").split("[\\s/]", 2)[0];
+                if (tag.startsWith("/") && SKIPPED_ELEMENTS.contains(name)) {
+                    // skip the content up to the opening tag
+                    final Matcher m = Pattern.compile("<" + Pattern.quote(name) + "[\\s>]")
+                            .matcher(text.substring(0, open));
+                    int opening = -1;
+                    while (m.find()) {
+                        opening = m.start();
+                    }
+                    if (opening < 0) {
+                        return false;
+                    }
+                    i = opening - 1;
+                } else if (INLINE_ELEMENTS.contains(name) || SKIPPED_ELEMENTS.contains(name)) {
+                    i = open - 1;
+                } else {
+                    return false;
+                }
+            } else if (c == ';') {
+                final int amp = text.lastIndexOf('&', i);
+                if (amp < 0 || !text.substring(amp, i + 1).matches("&(nbsp|#160|#x[aA]0);")) {
+                    return false; // quotes or other entities
+                }
+                i = amp - 1;
+            } else {
+                return SENTENCE_END.indexOf(c) < 0 && OPENERS.indexOf(c) < 0;
+            }
+        }
+        return false;
+    }
+
+    private static boolean isNominalised(final String text, final Matcher m) {
+        return m.group().startsWith("Ihr")
+                && ARTICLE_BEFORE
+                        .matcher(text.substring(Math.max(0, m.start() - 100), m.start()))
+                        .find();
+    }
+
+    /**
+     * Finds all polite forms (3rd person plural) in the middle of a sentence,
+     * i.e. those that can be marked up without asking the user.
+     *
+     * @param text
+     *            the text to search
+     * @param skipper
+     *            regions to leave alone, e.g. existing markup
+     * @return the matches, in document order
+     */
+    public static List<Match> findMidSentence(final String text, final RegionSkipper skipper) {
+        skipper.findRegionsToSkip(text);
+        final List<Match> matches = new ArrayList<Match>();
+        final Matcher m = vFormPattern3rdPersonPlural.matcher(text);
+        while (m.find()) {
+            // a soft hyphen doesn't end a word ("Sie\u00ADben")
+            final boolean hyphenated = m.end() < text.length() && text.charAt(m.end()) == '\u00AD';
+            if (!hyphenated && !skipper.inSkipRegion(m) && isMidSentence(text, m.start()) && !isNominalised(text, m)) {
+                matches.add(new Match(m.start(), m.end()));
+            }
+        }
+        return matches;
     }
 }

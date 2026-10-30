@@ -171,4 +171,61 @@ public class VFormUtilTest {
         assertEquals(
                 mu.find("Dann kann Anna es Deinem Kollegen geben.", 0, VFormUtil.get3rdPPPattern()), Match.NULL_MATCH);
     }
+
+    /**
+     * Calls {@link VFormUtil#isMidSentence} for the form marked with a "[" in
+     * text, e.g. "Er ging. [Sie blieb." asks whether "Sie" is in the middle of
+     * a sentence. The "[" is removed before the call.
+     */
+    private static boolean midSentence(final String text) {
+        final int start = text.indexOf("[");
+        return VFormUtil.isMidSentence(text.replace("[", ""), start);
+    }
+
+    @Test
+    public void testMidSentence() {
+        assertTrue(midSentence("Wir danken [Ihnen für Ihre Geduld."));
+        assertTrue(midSentence("Haben [Sie das gesehen?"));
+        assertTrue(midSentence("Was <em>wollen</em> [Sie?"));
+        assertTrue(midSentence("Kommen <em>[Sie</em> herein."));
+        assertTrue(midSentence("Wir warten&nbsp;[Sie ab."));
+        assertTrue(midSentence("Lesen\n        [Sie weiter."));
+    }
+
+    @Test
+    public void testSentenceStart() {
+        assertFalse(midSentence("[Sie kam."));
+        assertFalse(midSentence("Er ging. [Sie blieb."));
+        assertFalse(midSentence("<p>[Sie blieb."));
+        assertFalse(midSentence("<h1>Was</h1> [Sie wissen"));
+        assertFalse(midSentence("Er rief: [Sie kommen!"));
+        assertFalse(midSentence("Er sagte: »[Sie kommen.«"));
+        assertFalse(midSentence("»Ja.« [Sie lachte."));
+        assertFalse(midSentence("ins Ohr.) [Sie schien"));
+        assertFalse(midSentence("Er sagte &quot;[Sie"));
+        assertFalse(midSentence("<!-- x --> [Sie"));
+        assertFalse(midSentence("Er hielt inne … [Sie"));
+    }
+
+    @Test
+    public void testSentenceStartBehindMarkup() {
+        // vform_specs.txt 1.1.3.2, example 1 and 2
+        assertFalse(midSentence(
+                "Er ging zur Arbeit. <pagenum id=\"page-7\" page=\"normal\">7</pagenum>\n»[Sie sind zu spät"));
+        assertFalse(midSentence("Er ging zur <em>Migros.</em>\n»[Sie schon wieder"));
+        assertFalse(midSentence("Er ging zur Arbeit. <pagenum id=\"page-7\" page=\"normal\">7</pagenum> [Sie kam"));
+        assertTrue(midSentence("wollte sie <pagenum id=\"page-95\" page=\"normal\">95</pagenum>mit [Ihnen"));
+    }
+
+    @Test
+    public void testFindMidSentence() {
+        final String text = "<p>Sie kam. Darf ich Ihnen helfen? Das Siegel und das Ihre und Sie\u00ADben, "
+                + "<brl:v-form>Sie</brl:v-form> und WieSie, Ihretwegen.</p>";
+        final RegionSkipper skipper = RegionSkipper.makeMarkupRegionSkipper(VFormActionHelper.VFORM_TAG);
+        final StringBuilder found = new StringBuilder();
+        for (final Match m : VFormUtil.findMidSentence(text, skipper)) {
+            found.append(text, m.startOffset, m.endOffset).append(' ');
+        }
+        assertEquals("Ihnen Ihretwegen ", found.toString());
+    }
 }
