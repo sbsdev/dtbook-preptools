@@ -614,7 +614,8 @@ class AccentChangeAction extends FullRegexChangeAction {
         }
         final String newText = getPattern().matcher(selText).replaceAll(getReplaceString());
 
-        DocumentUtils.performMultipleReplacements(document, "\\b" + TextUtils.quoteRegexMeta(selText) + "\\b", newText);
+        DocumentUtils.performMultipleReplacements(
+                document, "(?U:\\b)" + TextUtils.quoteRegexMeta(selText) + "(?U:\\b)", newText);
 
         return lastMatchStart + newText.length();
     }

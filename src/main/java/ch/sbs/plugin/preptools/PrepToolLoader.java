@@ -31,14 +31,14 @@ public class PrepToolLoader {
 
     // Ordnungszahlen
     public static final String ORDINAL_NUM_TYPE = "ordinal";
-    public static final String ORDINAL_SEARCH_REGEX = "((?<![,'.])\\b\\d+\\.(?!\\d))(\\s*)(</|&ndash;)?";
+    public static final String ORDINAL_SEARCH_REGEX = "((?<![,'.])(?U:\\b)\\d+\\.(?!\\d))(\\s*)(</|&ndash;)?";
     public static final String ORDINAL_TAG = makeNumTag(ORDINAL_NUM_TYPE);
     public static final String ORDINAL_SKIP_REGEX = makeNumProtectRegex(ORDINAL_NUM_TYPE);
 
     // Römische Zahlen
     // case sensitive
     public static final String ROMAN_NUM_TYPE = "roman";
-    public static final String ROMAN_SEARCH_REGEX = "\\b[IVXCMLD]+\\b\\.?";
+    public static final String ROMAN_SEARCH_REGEX = "(?U:\\b)[IVXCMLD]+(?U:\\b)\\.?";
     public static final String ROMAN_TAG = makeNumTag(ROMAN_NUM_TYPE);
     public static final String ROMAN_SKIP_REGEX = makeNumProtectRegex(ROMAN_NUM_TYPE);
 
@@ -50,7 +50,7 @@ public class PrepToolLoader {
     // Eines ist das Mikro-Zeichen &micro; das andere ist das kleine mü &mu;
     public static final String MEASURE_NUM_TYPE = "measure";
     public static final String MEASURE_SEARCH_REGEX =
-            "\\b\\d*[.,'0-9]*\\d+\\s*(?iu:(([a-eg-hj-np-tv-zÅµμΩ²³]{1,4}|min|se[ck]|[km]*mol)\\s*/\\s*([a-eg-hj-np-tv-zÅµμΩ²³]{1,4}|min|se[ck]|[km]*mol)|([a-eg-hj-np-tv-zÅµμΩ²³]{1,4}|min|se[ck]|[km]*mol)))(?!\\p{L})";
+            "(?U:\\b)\\d*[.,'0-9]*\\d+\\s*(?iu:(([a-eg-hj-np-tv-zÅµμΩ²³]{1,4}|min|se[ck]|[km]*mol)\\s*/\\s*([a-eg-hj-np-tv-zÅµμΩ²³]{1,4}|min|se[ck]|[km]*mol)|([a-eg-hj-np-tv-zÅµμΩ²³]{1,4}|min|se[ck]|[km]*mol)))(?!\\p{L})";
     public static final String MEASURE_TAG = makeNumTag(MEASURE_NUM_TYPE);
     public static final String MEASURE_SKIP_REGEX = makeNumProtectRegex(MEASURE_NUM_TYPE);
 
@@ -58,7 +58,7 @@ public class PrepToolLoader {
     // Abkürzungen des Typs x.y. oder x. y.
     // Grossbuchstaben(folgen) des Typs A, A-Z, MM, USA, A4
     public static final String ABBREV_SEARCH_REGEX =
-            "(\\b\\p{L}{1,4}\\.)(\\s+)(\\d)|(\\b\\p{L}*\\p{Ll}\\p{Lu}\\p{L}*\\b|\\b\\p{L}{1,4}\\.(?:\\s*\\p{L}{1,4}\\.){1,3}|\\p{Lu}\\p{Lu}+|\\p{Lu}(?!\\p{Ll}))";
+            "((?U:\\b)\\p{L}{1,4}\\.)(\\s+)(\\d)|((?U:\\b)\\p{L}*\\p{Ll}\\p{Lu}\\p{L}*(?U:\\b)|(?U:\\b)\\p{L}{1,4}\\.(?:\\s*\\p{L}{1,4}\\.){1,3}|\\p{Lu}\\p{Lu}+|\\p{Lu}(?!\\p{Ll}))";
     public static final String ABBREV_TAG = "abbr";
 
     // http://redmine.sbszh.ch/issues/show/1203
@@ -71,7 +71,7 @@ public class PrepToolLoader {
     // http://redmine.sbszh.ch/issues/show/1201
 
     public static final String PLACEHOLDER = "_____";
-    public static final String ACCENT_SEARCH_REGEX = "(\\b(?:\\p{L}*(?iu:[àâçéèêëìîïòôœùû])\\p{L}*)+\\b)";
+    public static final String ACCENT_SEARCH_REGEX = "((?U:\\b)(?:\\p{L}*(?iu:[àâçéèêëìîïòôœùû])\\p{L}*)+(?U:\\b))";
     public static final String ACCENT_REPLACE = "<span brl:accents=\"" + PLACEHOLDER + "\">$1</span>";
     public static final String ACCENT_SKIP_REGEX = "span.*?";
 

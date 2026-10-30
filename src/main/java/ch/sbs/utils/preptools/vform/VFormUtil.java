@@ -118,7 +118,7 @@ public class VFormUtil {
     }
 
     private static String wrapInWordBoundaries(final String pattern) {
-        return "(?:" + pattern + ")\\b";
+        return "(?:" + pattern + ")(?U:\\b)";
     }
 
     public static Pattern get3rdPPPattern() {
