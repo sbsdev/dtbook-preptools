@@ -549,9 +549,9 @@ public class PrepToolsPluginExtension implements WorkspaceAccessPluginExtension 
     }
 
     private String getVersion() {
-	FileUtils object = new FileUtils();
-	Package pkg = object.getClass().getPackage();
-	String name = pkg.getImplementationTitle();
+        FileUtils object = new FileUtils();
+        Package pkg = object.getClass().getPackage();
+        String name = pkg.getImplementationTitle();
         String version = pkg.getImplementationVersion();
         final String preptoolVersion = String.format("%s: %s\n", name, version);
         final String oxygenVersion = String.format("Oxygen-Version: %s\n", pluginWorkspaceAccess.getVersion());
