@@ -270,7 +270,7 @@ public class PrepToolsPluginExtension implements WorkspaceAccessPluginExtension 
                     @Override
                     protected boolean pre(final Action theWrappedAction, final ActionEvent theActionEvent) {
                         final DocumentMetaInfo dmi = getDocumentMetaInfo();
-                        if (dmi.isProcessing()) {
+                        if (dmi != null && dmi.isProcessing()) {
                             return showConfirmDialog("Revert", "Document is being processed. Sure you want to Revert?");
                         }
                         return true;
@@ -283,8 +283,9 @@ public class PrepToolsPluginExtension implements WorkspaceAccessPluginExtension 
                         // Unfortunately, we don't know whether the user
                         // canceled the Revert action. But we'll
                         // restart anyway. No big deal.
-                        final PrepToolState mi = getDocumentMetaInfo().getCurrentToolSpecificMetaInfo();
-                        if (mi.hasStarted()) {
+                        final DocumentMetaInfo dmi = getDocumentMetaInfo();
+                        final PrepToolState mi = dmi != null ? dmi.getCurrentToolSpecificMetaInfo() : null;
+                        if (mi != null && mi.hasStarted()) {
                             mi.setHasStarted(false);
                             mi.setDone(false);
                             getCurrentPrepTool().setCurrentState(getDocumentMetaInfo());
@@ -303,7 +304,7 @@ public class PrepToolsPluginExtension implements WorkspaceAccessPluginExtension 
                     @Override
                     protected boolean pre(final Action theWrappedAction, final ActionEvent theActionEvent) {
                         dmi = getDocumentMetaInfo();
-                        if (dmi.isProcessing()) {
+                        if (dmi != null && dmi.isProcessing()) {
                             return showConfirmDialog(
                                     "Save As", "Document is being processed. Sure you want to Save As?");
                         }
@@ -312,7 +313,9 @@ public class PrepToolsPluginExtension implements WorkspaceAccessPluginExtension 
 
                     @Override
                     protected void post(final Action theWrappedAction, final ActionEvent theActionEvent) {
-                        removeDocumentMetaInfo(dmi);
+                        if (dmi != null) {
+                            removeDocumentMetaInfo(dmi);
+                        }
                         consolidatePrepTools(getEditorLocation());
                     }
                 });
@@ -373,7 +376,7 @@ public class PrepToolsPluginExtension implements WorkspaceAccessPluginExtension 
                     // @Override IMPORTANT: Don't add annotation @Override here!
                     public boolean editorAboutToBeClosed(final URL editorLocation) {
                         final DocumentMetaInfo dmi = getDocumentMetaInfo(editorLocation);
-                        if (dmi.isProcessing() && !applicationClosing) {
+                        if (dmi != null && dmi.isProcessing() && !applicationClosing) {
                             // we can veto closing in version 12.2 !
                             return (!showConfirmDialog(
                                     "Continue?",
@@ -390,6 +393,9 @@ public class PrepToolsPluginExtension implements WorkspaceAccessPluginExtension 
                     @Override
                     public void editorClosed(final URL editorLocation) {
                         final DocumentMetaInfo dmi = getDocumentMetaInfo(editorLocation);
+                        if (dmi == null) {
+                            return;
+                        }
                         if (dmi.isProcessing() && !applicationClosing && oxygenVersion < 12.2) {
                             // we can't veto closing in
                             // oxygen versions below 12.2!
@@ -424,8 +430,18 @@ public class PrepToolsPluginExtension implements WorkspaceAccessPluginExtension 
                     @Override
                     public void editorPageChanged(URL editorLocation) {
                         final DocumentMetaInfo dmi = getDocumentMetaInfo(editorLocation);
+                        if (dmi == null) {
+                            // the text page has not been shown yet, e.g. the
+                            // document was opened in the Author page
+                            return;
+                        }
                         dmi.setCurrentEditorPage(getPageId());
-                        dmi.setCurrentState();
+                        if (dmi.getCurrentPrepTool() == null) {
+                            // first switch to the text page
+                            consolidatePrepTools(editorLocation);
+                        } else {
+                            dmi.setCurrentState();
+                        }
                     }
                     ;
 
