@@ -31,7 +31,7 @@ public class FileUtilsTest {
     @Test
     public void testBasenameUrl() throws MalformedURLException {
         final String basename = "Das_Herz_des_Urpferds.xml";
-        final String url = "file:/home/wagnerb/projects/workspace/UTFX_run/resources/dtbook2sbsform/" + basename;
+        final String url = "file:/tmp/dtbook/" + basename;
         assertEquals(basename, FileUtils.basename(new URL(url)));
     }
 
@@ -48,7 +48,7 @@ public class FileUtilsTest {
     @Test
     public void testBasenameString() throws MalformedURLException {
         final String basename = "Das_Herz_des_Urpferds.xml";
-        final String url = "file:/home/wagnerb/projects/workspace/UTFX_run/resources/dtbook2sbsform/" + basename;
+        final String url = "file:/tmp/dtbook/" + basename;
         assertEquals(basename, FileUtils.basename(url));
     }
 }
