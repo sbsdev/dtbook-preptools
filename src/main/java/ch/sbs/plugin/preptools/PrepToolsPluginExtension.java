@@ -441,6 +441,7 @@ public class PrepToolsPluginExtension implements WorkspaceAccessPluginExtension 
                             consolidatePrepTools(editorLocation);
                         } else {
                             dmi.setCurrentState();
+                            restoreSelection(dmi);
                         }
                     }
                     ;
@@ -688,6 +689,27 @@ public class PrepToolsPluginExtension implements WorkspaceAccessPluginExtension 
         getPage().select(start, end);
         final Rectangle r = getPage().modelToViewRectangle(end);
         textArea.scrollRectToVisible(new java.awt.Rectangle(r.x, r.y - OFFSET / 2, r.width, r.height + OFFSET));
+    }
+
+    /**
+     * Switching to another page and back loses the selection in the text
+     * page. Re-select the current match so the next action doesn't think the
+     * user moved the cursor.
+     */
+    private void restoreSelection(final DocumentMetaInfo dmi) {
+        final PositionMatch match = dmi.getCurrentPositionMatch();
+        if (match == null || !dmi.isProcessing() || !EditorPageConstants.PAGE_TEXT.equals(getPageId())) {
+            return;
+        }
+        // let oXygen finish the page switch first, it places the caret itself
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (getPage() != null) {
+                    select(match.startOffset.getOffset(), match.endOffset.getOffset());
+                }
+            }
+        });
     }
 
     private void consolidatePrepTools(final URL editorLocation) {
