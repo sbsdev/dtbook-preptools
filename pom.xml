@@ -23,6 +23,8 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.release>8</maven.compiler.release>
+    <wordhierarchy.version>1.7</wordhierarchy.version>
+    <interval-tree.version>1.3</interval-tree.version>
     <tagNameFormat>v@{project.version}</tagNameFormat>
   </properties>
 
@@ -64,12 +66,12 @@
     <dependency>
       <groupId>ch.sbs.preptools</groupId>
       <artifactId>wordhierarchy</artifactId>
-      <version>1.7</version>
+      <version>${wordhierarchy.version}</version>
     </dependency>
     <dependency>
       <groupId>ch.sbs.preptools</groupId>
       <artifactId>interval-tree</artifactId>
-      <version>1.3</version>
+      <version>${interval-tree.version}</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
