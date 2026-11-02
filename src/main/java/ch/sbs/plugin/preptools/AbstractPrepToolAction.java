@@ -1010,7 +1010,7 @@ class VFormStartAction extends AbstractMarkupStartAction {
             document.insertString(match.startOffset, openingTag, null);
         }
         prepToolsPluginExtension.showMessage(
-                getPrepToolName() + ": marked up " + matches.size() + " forms in the middle of a sentence");
+                getPrepToolName() + ": marked up " + matches.size() + " polite forms in the middle of a sentence");
     }
 
     @Override
