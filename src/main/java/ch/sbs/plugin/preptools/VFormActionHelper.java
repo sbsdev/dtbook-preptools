@@ -20,6 +20,8 @@
 
 package ch.sbs.plugin.preptools;
 
+import ch.sbs.utils.preptools.vform.VFormUtil;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -40,6 +42,14 @@ public class VFormActionHelper {
 
     public String getPrepToolName() {
         return VFormPrepTool.PREPTOOL_NAME;
+    }
+
+    /**
+     * A "Sie" followed by a verb in the singular means "she", so the user
+     * doesn't need to decide on it.
+     */
+    public boolean isCandidate(final String text, final Matcher matcher) {
+        return !VFormUtil.isSingularSie(text, matcher.start(), matcher.end());
     }
 
     /**

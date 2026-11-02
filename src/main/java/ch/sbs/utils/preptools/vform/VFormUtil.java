@@ -23,6 +23,9 @@ package ch.sbs.utils.preptools.vform;
 import ch.sbs.utils.preptools.MarkupUtil;
 import ch.sbs.utils.preptools.Match;
 import ch.sbs.utils.preptools.RegionSkipper;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -30,6 +33,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import opennlp.tools.postag.POSModel;
+import opennlp.tools.postag.POSTaggerME;
 
 public class VFormUtil {
     // Mail von Mischa Kuenzle 12.1.2011 15:09
@@ -248,6 +253,82 @@ public class VFormUtil {
                 && ARTICLE_BEFORE
                         .matcher(text.substring(Math.max(0, m.start() - 100), m.start()))
                         .find();
+    }
+
+    private static final Pattern TOKEN = Pattern.compile("\\p{L}+|\\d+|[^\\s\\p{L}\\d]");
+
+    // a subject after the verb makes "Sie" the object, as in "Sie heißt er willkommen"
+    private static final Set<String> SUBJECT_PRONOUNS =
+            new HashSet<String>(Arrays.asList("er", "sie", "es", "ich", "du", "wir", "man"));
+
+    // the part of speech tagger, loaded on first use as that takes a moment
+    private static class Tagger {
+        // from opennlp-models-pos-de, the name changes with its version
+        private static final String MODEL = "/opennlp-de-ud-gsd-pos-1.3-2.5.4.bin";
+        static final POSTaggerME INSTANCE = load();
+
+        private static POSTaggerME load() {
+            try (InputStream in = VFormUtil.class.getResourceAsStream(MODEL)) {
+                if (in == null) {
+                    throw new IllegalStateException("POS model not found: " + MODEL);
+                }
+                return new POSTaggerME(new POSModel(in));
+            } catch (final IOException e) {
+                throw new UncheckedIOException(e);
+            }
+        }
+    }
+
+    /**
+     * Indicates whether the "Sie" at start..end means "she", because it is
+     * followed by a verb in the singular, e.g. "Sie hatte", "Sie lächelte".
+     * A verb that could be plural ("Sie haben", "Sie sagten", "Sie sind")
+     * leaves it open.
+     *
+     * @param text
+     *            the text containing the form
+     * @param start
+     *            start offset of the form
+     * @param end
+     *            end offset of the form
+     * @return true if the form is "Sie" and means "she"
+     */
+    public static boolean isSingularSie(final String text, final int start, final int end) {
+        if (!text.substring(start, end).equals("Sie")) {
+            return false;
+        }
+        final String[] tokens = tokensFrom(text, start);
+        if (tokens.length < 2) {
+            return false;
+        }
+        final String verb = tokens[1];
+        // plural verbs end in -n, except "sind"
+        if (verb.endsWith("n") || verb.equals("sind")) {
+            return false;
+        }
+        if (tokens.length > 2 && SUBJECT_PRONOUNS.contains(tokens[2].toLowerCase())) {
+            return false;
+        }
+        final String tag = Tagger.INSTANCE.tag(tokens)[1];
+        return tag.equals("VERB") || tag.equals("AUX");
+    }
+
+    // the words and punctuation from start up to the end of the sentence (at
+    // most 15), ignoring markup and soft hyphens
+    private static String[] tokensFrom(final String text, final int start) {
+        final String plain = text.substring(start, Math.min(text.length(), start + 300))
+                .replaceAll("<[^>]*>", " ")
+                .replaceAll("&[^;\\s]*;", " ")
+                .replace("\u00AD", "");
+        final List<String> tokens = new ArrayList<String>();
+        final Matcher m = TOKEN.matcher(plain);
+        while (tokens.size() < 15 && m.find()) {
+            tokens.add(m.group());
+            if (tokens.size() > 1 && ".!?:;".contains(m.group())) {
+                break;
+            }
+        }
+        return tokens.toArray(new String[0]);
     }
 
     /**

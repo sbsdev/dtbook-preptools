@@ -20,6 +20,7 @@
 
 package ch.sbs.utils.preptools;
 
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,14 +43,22 @@ public class MarkupUtil {
      * @return Match
      */
     public Match find(final String text, int start, final Pattern pattern) {
+        return find(text, start, pattern, m -> true);
+    }
+
+    /**
+     * Like {@link #find(String, int, Pattern)}, but also skips the matches
+     * that accept rejects.
+     */
+    public Match find(final String text, int start, final Pattern pattern, final Predicate<Matcher> accept) {
         final Matcher m = pattern.matcher(text);
-        boolean inSkipRegion = true;
+        boolean skip = true;
         skipper.findRegionsToSkip(text);
-        while (inSkipRegion && m.find(start)) {
+        while (skip && m.find(start)) {
             start = m.start() + 1;
-            inSkipRegion = skipper.inSkipRegion(m);
+            skip = skipper.inSkipRegion(m) || !accept.test(m);
         }
-        return inSkipRegion ? Match.NULL_MATCH : new Match(m.start(), m.end());
+        return skip ? Match.NULL_MATCH : new Match(m.start(), m.end());
     }
 
     /**

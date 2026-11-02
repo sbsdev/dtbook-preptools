@@ -220,7 +220,7 @@ abstract class AbstractMarkupAction extends AbstractPrepToolAction {
         if (customPattern != null) {
             skipper.addPattern(customPattern);
         }
-        final Match match = new MarkupUtil(skipper).find(newText, startAt, getPattern());
+        final Match match = new MarkupUtil(skipper).find(newText, startAt, getPattern(), m -> isCandidate(newText, m));
         if (match.equals(Match.NULL_MATCH)) {
             match.startOffset = 0;
             match.endOffset = 0;
@@ -238,6 +238,20 @@ abstract class AbstractMarkupAction extends AbstractPrepToolAction {
      */
     protected String getCustomSkipPatternToAdd() {
         return null;
+    }
+
+    /**
+     * Optional hook for subclasses to pass over matches the user doesn't
+     * need to decide on.
+     *
+     * @param text
+     *            the document text
+     * @param matcher
+     *            the matcher positioned on the match
+     * @return true if the search should stop at this match
+     */
+    protected boolean isCandidate(final String text, final Matcher matcher) {
+        return true;
     }
 
     /**
@@ -1008,6 +1022,11 @@ class VFormStartAction extends AbstractMarkupStartAction {
     protected String getPrepToolName() {
         return helper.getPrepToolName();
     }
+
+    @Override
+    protected boolean isCandidate(final String text, final Matcher matcher) {
+        return helper.isCandidate(text, matcher);
+    }
 }
 
 @SuppressWarnings("serial")
@@ -1028,6 +1047,11 @@ class VFormChangeAction extends AbstractMarkupChangeAction {
     protected String getPrepToolName() {
         return helper.getPrepToolName();
     }
+
+    @Override
+    protected boolean isCandidate(final String text, final Matcher matcher) {
+        return helper.isCandidate(text, matcher);
+    }
 }
 
 @SuppressWarnings("serial")
@@ -1047,6 +1071,11 @@ class VFormFindAction extends AbstractMarkupFindAction {
     @Override
     protected String getPrepToolName() {
         return helper.getPrepToolName();
+    }
+
+    @Override
+    protected boolean isCandidate(final String text, final Matcher matcher) {
+        return helper.isCandidate(text, matcher);
     }
 }
 

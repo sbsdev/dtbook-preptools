@@ -8,7 +8,9 @@ import java.util.regex.*;
 
 /**
  * Strip <brl:v-form> from gold DTBooks, run VFormUtil.findMidSentence and
- * compare with where the transcribers had put the markup.
+ * compare with where the transcribers had put the markup. Of the candidates
+ * that are left to the user, also count those that VFormUtil.isSingularSie
+ * skips.
  *
  * CORPUS_LIST is a file with one path per line to DTBooks that already
  * contain hand-made v-form markup. MAX_ERRORS (default 40) limits how many
@@ -24,7 +26,7 @@ public class EvalMidSentence {
 
     public static void main(String[] args) throws Exception {
         int maxErrors = args.length > 1 ? Integer.parseInt(args[1]) : 40;
-        long candidates = 0, gold = 0, auto = 0, autoWrong = 0, goldMissedByAuto = 0;
+        long candidates = 0, gold = 0, auto = 0, autoWrong = 0, goldMissedByAuto = 0, verbSkipped = 0, verbSkippedGold = 0;
         List<String> errors = new ArrayList<>();
         Map<String, long[]> perBook = new TreeMap<>();
         int books = 0;
@@ -67,6 +69,12 @@ public class EvalMidSentence {
                         autoWrong++;
                         if (errors.size() < maxErrors) errors.add(Paths.get(path).getFileName() + ": " + context(text, c.start(), c.end()));
                     }
+                } else if (VFormUtil.isSingularSie(text, c.start(), c.end())) {
+                    verbSkipped++;
+                    if (isGold) {
+                        verbSkippedGold++;
+                        errors.add(Paths.get(path).getFileName() + " (verb rule): " + context(text, c.start(), c.end()));
+                    }
                 } else if (isGold) {
                     goldMissedByAuto++;
                 }
@@ -75,10 +83,13 @@ public class EvalMidSentence {
         System.out.printf("%d books, %d candidates, %d gold v-forms%n", books, candidates, gold);
         System.out.printf("auto-marked: %d (%.1f%% of candidates), of which not gold: %d (%.2f%%)%n",
                 auto, 100.0 * auto / candidates, autoWrong, 100.0 * autoWrong / auto);
-        System.out.printf("gold v-forms left for the user: %d%n", goldMissedByAuto);
+        System.out.printf("skipped by the verb rule: %d (%.1f%% of candidates), of which gold: %d%n",
+                verbSkipped, 100.0 * verbSkipped / candidates, verbSkippedGold);
+        System.out.printf("left for the user: %d, of which gold: %d%n",
+                candidates - auto - verbSkipped, goldMissedByAuto);
         System.out.println("\nper book: gold, auto, auto-not-gold");
         for (var e : perBook.entrySet()) System.out.printf("  %-40s %6d %6d %5d%n", e.getKey(), e.getValue()[0], e.getValue()[1], e.getValue()[2]);
-        System.out.println("\nauto-marked but not gold:");
+        System.out.println("\nauto-marked but not gold, or gold but skipped by the verb rule:");
         for (String e : errors) System.out.println("  " + e);
     }
 

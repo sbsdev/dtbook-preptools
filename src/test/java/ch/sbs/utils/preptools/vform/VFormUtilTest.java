@@ -217,6 +217,30 @@ public class VFormUtilTest {
         assertTrue(midSentence("wollte sie <pagenum id=\"page-95\" page=\"normal\">95</pagenum>mit [Ihnen"));
     }
 
+    // the form under test is the "Sie" at the start of text
+    private static boolean singularSie(final String text) {
+        return VFormUtil.isSingularSie(text, 0, 3);
+    }
+
+    @Test
+    public void testSingularSie() {
+        assertTrue(singularSie("Sie hatte keine Zeit."));
+        assertTrue(singularSie("Sie lächelte."));
+        assertTrue(singularSie("Sie <em>war</em> müde."));
+        assertTrue(singularSie("Sie hat\u00ADte keine Zeit."));
+    }
+
+    @Test
+    public void testNotSingularSie() {
+        assertFalse(singularSie("Sie haben recht."));
+        assertFalse(singularSie("Sie sagten nichts."));
+        assertFalse(singularSie("Sie sind müde."));
+        assertFalse(singularSie("Sie auch nicht."));
+        assertFalse(singularSie("Sie heißt er willkommen."));
+        assertFalse(singularSie("Sie."));
+        assertFalse(VFormUtil.isSingularSie("Ihre Zeit war um.", 0, 4));
+    }
+
     @Test
     public void testFindMidSentence() {
         final String text = "<p>Sie kam. Darf ich Ihnen helfen? Das Siegel und das Ihre und Sie\u00ADben, "

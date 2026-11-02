@@ -22,6 +22,7 @@ package ch.sbs.utils.preptools;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.regex.Pattern;
 import org.junit.Test;
 
 public class MarkupUtilTest {
@@ -34,5 +35,13 @@ public class MarkupUtilTest {
     @Test
     public void testClosingElement2() {
         assertEquals("brl:num", MarkupUtil.getClosingTag("brl:num\\s+role=\"ordinal\""));
+    }
+
+    @Test
+    public void testFindWithFilter() {
+        final MarkupUtil mu = new MarkupUtil(RegionSkipper.makeMarkupRegionSkipper("em"));
+        final String text = "<em>Sie</em> kam. Sie ging. Sie blieb.";
+        final Match match = mu.find(text, 0, Pattern.compile("Sie"), m -> !text.startsWith("Sie ging", m.start()));
+        assertEquals(text.lastIndexOf("Sie"), match.startOffset);
     }
 }
