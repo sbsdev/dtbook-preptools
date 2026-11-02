@@ -20,10 +20,9 @@
 
 package ch.sbs.utils.preptools;
 
+import java.util.BitSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.arabidopsis.interval.Interval;
-import org.arabidopsis.interval.IntervalTree;
 
 /**
  * Allows to ignore regions in a text when searching for patterns.
@@ -38,12 +37,12 @@ import org.arabidopsis.interval.IntervalTree;
  * Call inSkipRegion(Matcher)
  */
 public class RegionSkipper {
-    private final IntervalTree tree;
+    // one bit per character of the text, set if the character is to be skipped
+    private final BitSet skipped = new BitSet();
     private String skipPattern;
 
     public RegionSkipper(final String pattern) {
         skipPattern = pattern;
-        tree = new IntervalTree();
     }
 
     public RegionSkipper addPattern(final String pattern) {
@@ -55,11 +54,8 @@ public class RegionSkipper {
         return this;
     }
 
-    // java.util.regex.Matcher's definition of a region includes the lower bound
-    // but excludes the upper, while the IntervalTree includes both bounds.
-    // This means we have to subtract 1 from the upper bound.
     public void addRegion(int start, int end) {
-        tree.insert(new Interval(start, end - 1));
+        skipped.set(start, end);
     }
 
     public void findRegionsToSkip(final String theText) {
@@ -69,9 +65,6 @@ public class RegionSkipper {
         }
     }
 
-    // java.util.regex.Matcher's definition of a region includes the lower bound
-    // but excludes the upper, while the IntervalTree includes both bounds.
-    // This means we have to subtract 1 from the upper bound.
     /**
      * Indicates whether a given matcher's last match lies in a region to
      * ignore.
@@ -82,10 +75,8 @@ public class RegionSkipper {
      *         ignore.
      */
     public boolean inSkipRegion(final Matcher matcher) {
-        if (tree == null) {
-            throw new RuntimeException("You need to call findRegionsToSkip first!");
-        }
-        return tree.search(new Interval(matcher.start(), matcher.end() - 1)) != null;
+        final int i = skipped.nextSetBit(matcher.start());
+        return i >= 0 && i < matcher.end();
     }
 
     /**

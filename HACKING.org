@@ -18,7 +18,7 @@ The current implementation of the plugin does the markup enrichment
 directly in the text and does not parse the XML. This has some
 problems in that we have to deal with gruesome regular expressions
 which try to match across the XML tags (see the whole business with
-the skipper and the interval tree, trying to hide the XML tags). So on
+the region skipper, trying to hide the XML tags). So on
 the one hand this is a drawback. On the other hand it keeps us from
 having to synchronize the document tree with the text, as while we are
 manipulating the document tree the user might at the same time modify
@@ -94,8 +94,6 @@ Utility functions to read version info from a properties file.
 
 
 * External Dependencies
-- https://github.com/bwagner/interval-tree 
-  - as forked from https://github.com/dyoo/interval-tree
 - https://github.com/bwagner/wordhierarchy
 
 
