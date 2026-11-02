@@ -21,7 +21,6 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>8</maven.compiler.release>
-    <wordhierarchy.version>1.7</wordhierarchy.version>
     <tagNameFormat>v@{project.version}</tagNameFormat>
   </properties>
 
@@ -55,11 +54,6 @@
       <artifactId>oxygen</artifactId>
       <version>25.0.0.0</version>
       <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>ch.sbs.preptools</groupId>
-      <artifactId>wordhierarchy</artifactId>
-      <version>${wordhierarchy.version}</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

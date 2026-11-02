@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import net.xmlizer.wordhierarchy.WordHierarchyBuilder;
 
 public class VFormUtil {
     // Mail von Mischa Kuenzle 12.1.2011 15:09
@@ -116,10 +115,10 @@ public class VFormUtil {
         final Set<String> allForms = new HashSet<String>(thirdPP.length + secondP.length);
         allForms.addAll(Arrays.asList(thirdPP));
         allForms.addAll(Arrays.asList(secondP));
-        vFormPatternAll = Pattern.compile(wrapInWordBoundaries(
-                WordHierarchyBuilder.createWordTree(allForms).toRegex()));
-        vFormPattern3rdPersonPlural = Pattern.compile(wrapInWordBoundaries(
-                WordHierarchyBuilder.createWordTree(thirdPP).toRegex()));
+        // the trailing word boundary makes the regex try the next alternative
+        // when a shorter form is only a prefix, e.g. "Ihr" in "Ihre"
+        vFormPatternAll = Pattern.compile(wrapInWordBoundaries(String.join("|", allForms)));
+        vFormPattern3rdPersonPlural = Pattern.compile(wrapInWordBoundaries(String.join("|", thirdPP)));
     }
 
     private static String wrapInWordBoundaries(final String pattern) {

@@ -93,10 +93,6 @@ Utility functions to read version info from a properties file.
 ** VFormUtil.java
 
 
-* External Dependencies
-- https://github.com/bwagner/wordhierarchy
-
-
 * Individual PrepTools
 The following is a short description of each individual
 preptool. 

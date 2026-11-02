@@ -8,7 +8,6 @@
     class="ch.sbs.plugin.preptools.PrepToolsPlugin">
   <runtime>
     <library name="lib/dtbook-preptools-${project.version}.jar"/>
-    <library name="lib/wordhierarchy-${wordhierarchy.version}.jar"/>
   </runtime>
   <extension type="WorkspaceAccess" class="ch.sbs.plugin.preptools.PrepToolsPluginExtension"/>
   <extension type="componentsValidator" class="ch.sbs.plugin.preptools.PrepToolsValidatorPluginExtension"/>
