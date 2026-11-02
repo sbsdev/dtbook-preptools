@@ -20,7 +20,7 @@ mvn release:prepare && mvn release:perform  # release to Maven Central (tags v<v
 
 User-visible changes go into `CHANGELOG.md` under `[Unreleased]`; on a release, that section gets the version and date.
 
-The `oxygen` dependency comes from the oxygenxml Maven repo declared in `pom.xml`. `lib/` holds legacy jars and is not used by the Maven build.
+The `oxygen` dependency comes from the oxygenxml Maven repo declared in `pom.xml`.
 
 ## Architecture
 
