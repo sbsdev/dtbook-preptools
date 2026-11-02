@@ -8,6 +8,9 @@
     class="ch.sbs.plugin.preptools.PrepToolsPlugin">
   <runtime>
     <library name="lib/dtbook-preptools-${project.version}.jar"/>
+    <library name="lib/opennlp-tools-${opennlp.version}.jar"/>
+    <library name="lib/opennlp-models-pos-de-${opennlp-models-pos-de.version}.jar"/>
+    <library name="lib/slf4j-api-${slf4j.version}.jar"/>
   </runtime>
   <extension type="WorkspaceAccess" class="ch.sbs.plugin.preptools.PrepToolsPluginExtension"/>
   <extension type="componentsValidator" class="ch.sbs.plugin.preptools.PrepToolsValidatorPluginExtension"/>

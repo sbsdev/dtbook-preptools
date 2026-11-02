@@ -20,7 +20,10 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.release>8</maven.compiler.release>
+    <maven.compiler.release>17</maven.compiler.release>
+    <opennlp.version>2.5.12</opennlp.version>
+    <opennlp-models-pos-de.version>1.3.0</opennlp-models-pos-de.version>
+    <slf4j.version>2.0.18</slf4j.version>
     <tagNameFormat>v@{project.version}</tagNameFormat>
   </properties>
 
@@ -54,6 +57,22 @@
       <artifactId>oxygen</artifactId>
       <version>25.0.0.0</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.opennlp</groupId>
+      <artifactId>opennlp-tools</artifactId>
+      <version>${opennlp.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.opennlp</groupId>
+      <artifactId>opennlp-models-pos-de</artifactId>
+      <version>${opennlp-models-pos-de.version}</version>
+    </dependency>
+    <!-- pulled in by opennlp-tools, declared so its version matches plugin.xml -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

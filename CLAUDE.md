@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-An oXygen XML Editor plugin (Java 8, Maven) that helps SBS staff enrich DTBook XML with markup needed for Braille translation (vforms, ordinals, roman numerals, measures, abbreviations, URLs/emails, page breaks, accents, paren balancing). `HACKING.org` has a per-class and per-preptool description — read it before larger changes.
+An oXygen XML Editor plugin (Java 17, so oXygen 25 or later; Maven) that helps SBS staff enrich DTBook XML with markup needed for Braille translation (vforms, ordinals, roman numerals, measures, abbreviations, URLs/emails, page breaks, accents, paren balancing). `HACKING.org` has a per-class and per-preptool description — read it before larger changes.
 
 ## Commands
 
@@ -22,7 +22,7 @@ The `oxygen` dependency comes from the oxygenxml Maven repo declared in `pom.xml
 
 ## Architecture
 
-- **Packaging**: `src/main/resources/plugin.xml` is Maven-filtered (`${project.version}`) and bundled with the jar and any runtime deps into a zip by `src/assembly/plugin-assembly.xml`. There are currently no runtime deps besides oXygen itself. A new one needs its own version property in `pom.xml` and a `<library>` entry in `plugin.xml`; any property referenced in `plugin.xml` must exist in `pom.xml`, otherwise the library paths in the installed plugin are wrong. oXygen and log4j 1.x are excluded from the zip.
+- **Packaging**: `src/main/resources/plugin.xml` is Maven-filtered (`${project.version}` and the dependency versions) and bundled with the jar and the runtime deps into a zip by `src/assembly/plugin-assembly.xml`. The runtime deps are OpenNLP, its German POS model and slf4j-api. A new one needs its own version property in `pom.xml` and a `<library>` entry in `plugin.xml`; any property referenced in `plugin.xml` must exist in `pom.xml`, otherwise the library paths in the installed plugin are wrong. oXygen and log4j 1.x are excluded from the zip.
 - **Entry point**: `PrepToolsPlugin` → `PrepToolsPluginExtension` (WorkspaceAccess extension) builds menus/toolbar, wraps oXygen's "Revert"/"Save as" via `MenuPlugger` so per-document prep tool state can be reset, and tracks per-document state in `DocumentMetaInfo`.
 - **Prep tools**: `PrepToolLoader` is the single registry: it defines every search regex as a constant and instantiates the tools in menu order (with mnemonics). Tool class hierarchy lives in `PrepTool.java` (`PrepTool` → `AbstractMarkupPrepTool` → `RegexPrepTool`/`FullRegexPrepTool`/`VFormPrepTool`, plus `ParensPrepTool`, `PageBreakPrepTool`, `AccentPrepTool`). The Start/Find/Change Swing actions for all tools are package-private classes in `AbstractPrepToolAction.java`. Adding a tool = regex constant + entry in `loadPrepTools` + (if needed) custom action subclasses.
 - **Text, not DOM**: tools operate on the raw `javax.swing.text.Document` text with regexes, never on a parsed XML tree (see HACKING.org for why). XML tags and already-marked-up regions are hidden from matching by `RegionSkipper` (a `BitSet` of skipped characters) and `MarkupUtil`. `PositionMatch` uses Swing `Position`s so matches survive concurrent edits; `OxygenEditGrouper` groups edits into one undo step.
