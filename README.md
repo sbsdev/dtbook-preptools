@@ -8,7 +8,8 @@ dtbook-files as a preparatory step to translation to [Braille](http://en.wikiped
 
 The plugin needs [oXygen XML Editor](http://www.oxygenxml.com/) 25 or later.
 
-1. Download `dtbook-preptools-<version>-plugin.zip` from
+1. Download `dtbook-preptools-<version>-plugin.zip` from the
+   [releases](https://github.com/sbsdev/dtbook-preptools/releases). Versions up to 1.4 are on
    [Maven Central](https://repo1.maven.org/maven2/ch/sbs/preptools/dtbook-preptools/).
 2. Quit oXygen.
 3. Delete the folder `plugins/dtbook-preptools` in the oXygen installation directory, if there is
@@ -56,12 +57,23 @@ Format the source code
 mvn -B spotless:apply
 ```
 
-# Release and deploy
+# Release
 
-```
-mvn release:prepare
-mvn release:perform
-```
+1. In `CHANGELOG.md`, turn the `[Unreleased]` section into `[<version>] - <date>`, start a new
+   empty `[Unreleased]` section, update the links at the bottom, and commit.
+2. Set the version, tag the release as `v<version>` and push:
+   ```
+   mvn release:prepare
+   ```
+3. Build the plugin zip from the tag, in `target/checkout/target/`:
+   ```
+   mvn release:perform
+   ```
+4. Publish it as a GitHub release, with the changelog section as release notes:
+   ```
+   gh release create v<version> target/checkout/target/dtbook-preptools-<version>-plugin.zip \
+     --title <version> --notes-file <notes>
+   ```
 
 # License
 

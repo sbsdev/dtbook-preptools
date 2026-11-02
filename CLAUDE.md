@@ -15,7 +15,7 @@ mvn -B test -Dtest=RegexOrdinalTest         # single test class
 mvn -B test -Dtest=RegexOrdinalTest#testX   # single test method
 mvn -B spotless:apply                       # format (palantir-java-format); run before committing
 mvn -B exec:exec                            # regenerate GTAGS
-mvn release:prepare && mvn release:perform  # release to Maven Central (tags v<version>)
+mvn release:prepare && mvn release:perform  # tag v<version>, build the zip in target/checkout/target/; see README for the GitHub release
 ```
 
 User-visible changes go into `CHANGELOG.md` under `[Unreleased]`; on a release, that section gets the version and date.
