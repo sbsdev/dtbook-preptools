@@ -228,6 +228,11 @@ public class VFormUtilTest {
         assertTrue(singularSie("Sie lächelte."));
         assertTrue(singularSie("Sie <em>war</em> müde."));
         assertTrue(singularSie("Sie hat\u00ADte keine Zeit."));
+        assertTrue(singularSie("Sie kann nicht funktionieren?"));
+        assertTrue(singularSie("Sie schien überrascht."));
+        assertTrue(singularSie("Sie erschien ihm gefasst."));
+        assertTrue(singularSie("Sie hatte sie auch hergebracht."));
+        assertTrue(singularSie("Sie liebte es, zu schnorcheln."));
     }
 
     @Test
@@ -237,6 +242,8 @@ public class VFormUtilTest {
         assertFalse(singularSie("Sie sind müde."));
         assertFalse(singularSie("Sie auch nicht."));
         assertFalse(singularSie("Sie heißt er willkommen."));
+        assertFalse(singularSie("Sie schienen müde."));
+        assertFalse(singularSie("Sie begannen."));
         assertFalse(singularSie("Sie."));
         assertFalse(VFormUtil.isSingularSie("Ihre Zeit war um.", 0, 4));
     }
@@ -251,5 +258,16 @@ public class VFormUtilTest {
             found.append(text, m.startOffset, m.endOffset).append(' ');
         }
         assertEquals("Ihnen Ihretwegen ", found.toString());
+    }
+
+    @Test
+    public void testFindMidSentencePronounBeforeIhr() {
+        final String text = "<p>Ist das Ihr Neffe? Die Frau, die Ihr Meer beschützt. Er tat das Ihre.</p>";
+        final RegionSkipper skipper = RegionSkipper.makeMarkupRegionSkipper(VFormActionHelper.VFORM_TAG);
+        final StringBuilder found = new StringBuilder();
+        for (final Match m : VFormUtil.findMidSentence(text, skipper)) {
+            found.append(text, m.startOffset, m.endOffset).append(' ');
+        }
+        assertEquals("Ihr Ihr ", found.toString());
     }
 }

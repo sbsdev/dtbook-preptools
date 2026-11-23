@@ -189,6 +189,9 @@ public class VFormUtil {
     // "das Ihre", "die Ihren": nominalised, usually "theirs" rather than polite
     private static final Pattern ARTICLE_BEFORE = Pattern.compile("(?i)(?<!\\p{L})(?:das|der|die|dem|den|des)\\s+$");
 
+    // a noun after "das Ihr" makes "das" a pronoun: "Ist das Ihr Wagen?"
+    private static final Pattern NOUN_AFTER = Pattern.compile("^\\s+\\p{Lu}");
+
     /**
      * A capitalised polite form in the middle of a sentence is always a
      * v-form. At the start of a sentence it might as well be "she" or "they".
@@ -252,14 +255,18 @@ public class VFormUtil {
         return m.group().startsWith("Ihr")
                 && ARTICLE_BEFORE
                         .matcher(text.substring(Math.max(0, m.start() - 100), m.start()))
+                        .find()
+                && !NOUN_AFTER
+                        .matcher(text.substring(m.end(), Math.min(text.length(), m.end() + 100)))
                         .find();
     }
 
     private static final Pattern TOKEN = Pattern.compile("\\p{L}+|\\d+|[^\\s\\p{L}\\d]");
 
-    // a subject after the verb makes "Sie" the object, as in "Sie heißt er willkommen"
+    // a subject after the verb makes "Sie" the object, as in "Sie heißt er
+    // willkommen"; not "sie" and "es", which are mostly objects ("Sie hatte sie")
     private static final Set<String> SUBJECT_PRONOUNS =
-            new HashSet<String>(Arrays.asList("er", "sie", "es", "ich", "du", "wir", "man"));
+            new HashSet<String>(Arrays.asList("er", "ich", "du", "wir", "man"));
 
     // the part of speech tagger, loaded on first use as that takes a moment
     private static class Tagger {
@@ -302,8 +309,8 @@ public class VFormUtil {
             return false;
         }
         final String verb = tokens[1];
-        // plural verbs end in -n, except "sind"
-        if (verb.endsWith("n") || verb.equals("sind")) {
+        // plural verbs end in -n, except "sind"; "kann", "begann", "schien" are singular
+        if ((verb.endsWith("n") && !verb.endsWith("ann") && !verb.endsWith("schien")) || verb.equals("sind")) {
             return false;
         }
         if (tokens.length > 2 && SUBJECT_PRONOUNS.contains(tokens[2].toLowerCase())) {

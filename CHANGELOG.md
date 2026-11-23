@@ -45,6 +45,13 @@ What's new for the users of the DTBook preptools. The format follows
   Ordinals, Roman Numerals and Measures preptools were affected in rare
   cases as well.
 
+- **The VForms preptool asks less often (since 2.0-rc1).** "Sie" is
+  now also skipped as "she" before "kann", "schien" or "erschien", and
+  when "sie" or "es" follows the verb ("Sie hatte sie", "Sie liebte
+  es"). "Ihr" and "Ihre" after "das" or "die" are marked
+  automatically again when a noun follows ("Ist das Ihr Wagen?", "die
+  Ihr Meer beschützt").
+
 ## [1.4] - 2023-03-30
 
 Earlier versions are only documented in the git history.
