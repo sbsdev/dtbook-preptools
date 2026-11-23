@@ -52,6 +52,10 @@ What's new for the users of the DTBook preptools. The format follows
   automatically again when a noun follows ("Ist das Ihr Wagen?", "die
   Ihr Meer beschützt").
 
+- **Undo no longer stops the preptool.** After an Undo, the Find button
+  stayed greyed out and you had to press Start again. Now only File >
+  Reload restarts the preptool.
+
 ## [1.4] - 2023-03-30
 
 Earlier versions are only documented in the git history.

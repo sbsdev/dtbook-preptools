@@ -264,14 +264,16 @@ public class PrepToolsPluginExtension implements WorkspaceAccessPluginExtension 
              */
             @SuppressWarnings("serial")
             private void customizeExistingMenuEntries(final JMenuBar mainMenuBar) {
-                final String[] revertLabel = {"Undo", "Rückgängig"};
+                // File > Reload, called Revert before oXygen 25 (not Edit > Undo,
+                // which is also "Rückgängig" in German)
+                final String[] revertLabel = {"Reload", "Reload...", "Erneut laden", "Erneut laden..."};
                 boolean plug = MenuPlugger.plug(mainMenuBar, revertLabel, new MenuPlugger.ActionWrapper() {
 
                     @Override
                     protected boolean pre(final Action theWrappedAction, final ActionEvent theActionEvent) {
                         final DocumentMetaInfo dmi = getDocumentMetaInfo();
                         if (dmi != null && dmi.isProcessing()) {
-                            return showConfirmDialog("Revert", "Document is being processed. Sure you want to Revert?");
+                            return showConfirmDialog("Reload", "Document is being processed. Sure you want to Reload?");
                         }
                         return true;
                     }
